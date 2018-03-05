@@ -27,10 +27,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `recruit` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `fname` tinytext NOT NULL,
   `sname` tinytext NOT NULL,
-  `email` varchar(50) NOT NULL
+  `email` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
