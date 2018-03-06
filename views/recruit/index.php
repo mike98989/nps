@@ -13,15 +13,17 @@
       <div class="col-lg-5 g-bg-teal g-rounded-left-5--lg-up">
         <div class="g-pa-50">
           <!-- Form -->
-          <form action="" class="g-py-15" method="post">
+          <form action="" class="g-py-15" method="post" onsubmit="return validateLoginForm();">
           	<input type="hidden" name="form" value="login">
-            <h2 class="h3 g-color-white mb-4">Login</h2>
+            <h2 class="h3 g-color-white mb-4">
+              Login <span class="text-danger"><?php echo $loginErrorMessage; ?></span>
+            </h2>
             <div class="mb-4">
               <div class="input-group">
                 <span class="input-group-addon g-width-45 g-brd-white g-color-white">
-                    <i class="icon-finance-067 u-line-icon-pro"></i>
-                  </span>
-                <input name="email" class="form-control g-color-black g-brd-left-none g-brd-white g-bg-transparent g-color-white g-placeholder-white g-pl-0 g-pr-15 g-py-13" type="email" placeholder="Email">
+                  <i class="icon-finance-067 u-line-icon-pro"></i>
+                </span>
+                <input required name="email" class="form-control g-color-black g-brd-left-none g-brd-white g-bg-transparent g-color-white g-placeholder-white g-pl-0 g-pr-15 g-py-13" type="email" placeholder="Email">
               </div>
             </div>
 
@@ -30,7 +32,7 @@
                 <span class="input-group-addon g-width-45 g-brd-white g-color-white">
                       <i class="icon-communication-062 u-line-icon-pro"></i>
                     </span>
-                <input name="password" class="form-control g-color-black g-brd-left-none g-brd-white g-bg-transparent g-color-white g-placeholder-white g-pl-0 g-pr-15 g-py-13" type="password" placeholder="Password">
+                <input required name="password" class="form-control g-color-black g-brd-left-none g-brd-white g-bg-transparent g-color-white g-placeholder-white g-pl-0 g-pr-15 g-py-13" type="password" placeholder="Password">
               </div>
             </div>
 
@@ -52,12 +54,7 @@
           <!-- Form -->
           <form id="signupForm" action="" class="g-py-15" method="post" onsubmit="return validateSignupForm();">
           	<input type="hidden" name="form" value="signup">
-            <h2 class="h3 g-color-black mb-4">
-            	Signup
-            <?php if (isset($signupErrorMessage)) {?>
-						<span class="text-danger">Email already used</span>
-						<?php }?>
-            </h2>
+            <h2 class="h3 g-color-black mb-4">Signup</h2>
             <div class="mb-4">
               <div class="input-group rounded">
                 <span class="input-group-addon g-width-45 g-brd-gray-light-v4 g-color-gray-dark-v5">
@@ -83,6 +80,9 @@
                     </span>
                 <input required id="signup-email" name="email" class="form-control g-color-black g-brd-left-none g-bg-white g-bg-white--focus g-brd-gray-light-v4 g-pl-0 g-pr-15 g-py-13" type="email" placeholder="Email">
               </div>
+              <small class="text-danger" id="signup-email-error">
+                <?php if (isset($signupErrorMessage)) { echo 'Email already used'; } ?>
+              </small>
             </div>
 
             <div class="mb-4">
@@ -104,7 +104,7 @@
   </div>
 </section>
 <?php
-foreach ($this->js as $src) {
+foreach ($this->scripts as $src) {
   echo "<script src='{$src}'></script>";
 }
 ?>

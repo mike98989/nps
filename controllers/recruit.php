@@ -6,7 +6,7 @@ class Recruit extends Controller {
 		parent::__construct();
 		$this->rootUrl = constant("URL") . 'recruit';
         
-    $this->view->js = array('public/js/authenticationPage.js');
+    $this->view->scripts = array('public/js/validateForms.js');
 	}
 
 	function index() {
@@ -20,26 +20,29 @@ class Recruit extends Controller {
 			$email = $_POST['email'];
 			$password = $_POST['password'];
 
-			$res = $this->model->email_exists($email);
-			$email_exists = $res[0]['result'] == '1';
-
-			if ($email_exists) {
+			if ($this->model->email_exists($email)) {
 				$this->view->data['signupErrorMessage'] = 'Email already used';
 				$this->view->render('recruit/index', $noinclude=false, $message);
 				die();
 			}
 
 			$this->model->insert_user($fname, $lname, $email, $password);
-			Session::init();
-			Session::set('loggedIn', true);
-			Session::set('email', $email);
-			Session::set('lname', $lname);
+			$this->login_user($email);
 			Session::set('fname', $fname);
+			Session::set('lname', $lname);
 			$this->redirect("{$this->rootUrl}/registration");
 		}
 
 		if ($this->is_login()) {
+			$email = $_POST['email'];
+			$password = $_POST['password'];
 
+			if(!$this->model->validate_user($email, $password)) {
+				$this->view->data['loginErrorMessage'] = 'Invalid email or password';
+			} else {
+				$this->login_user($email);
+				$this->redirect("{$this->rootUrl}/registration");
+			}
 		}
 
 		$message='';
@@ -75,6 +78,12 @@ class Recruit extends Controller {
 
 	function is_login() {
 		return isset($_POST['form']) && $_POST['form'] == 'login';
+	}
+
+	function login_user($email) {
+		Session::init();
+		Session::set('loggedIn', true);
+		Session::set('email', $email);
 	}
     
     

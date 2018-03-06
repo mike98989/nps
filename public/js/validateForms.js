@@ -1,4 +1,3 @@
-
 function validateSignupForm() {
 	var password = document.getElementById('signup-password').value;
 
@@ -6,6 +5,11 @@ function validateSignupForm() {
 		document.getElementById('signup-password-error').innerHTML = 'Password must have at least 6 characters.';
 		return false;
 	}
-	
+
+	return true;
+}
+
+
+function validateLoginForm() {	
 	return true;
 }
