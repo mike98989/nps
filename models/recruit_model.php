@@ -4,7 +4,8 @@ class recruit_Model extends Model {
 
 	function __construct() {
 		parent::__construct();
-    $this->table = 'recruit';  
+    $this->table = 'recruit';
+    $this->personal_details_table = 'personal_details';
 	}
 
 	public function email_exists($email) {
@@ -18,6 +19,66 @@ class recruit_Model extends Model {
 		$query = "INSERT INTO {$this->table}(fname, sname, email, password) VALUES ('{$fname}', '{$sname}', '{$email}', '{$pwd_hash}')";
 		
 		return $this->db->query($query)->rows;
+	}
+
+	public function save_details($id, $details) {
+		$id = (int) $id;
+
+		$query = "SELECT COUNT(*) AS result FROM {$this->personal_details_table} WHERE recruit_id={$id}";
+		$result = $this->db->query($query)->rows;
+
+		if ($result[0]['result']) {
+			return $this->update_personal_details($id, $details);
+		} else {
+			$details['recruit_id'] = $id;
+			return $this->insert_personal_details($details);
+		}
+	}
+
+	function insert_personal_details($details) {
+		$columns = "";
+		$values = "";
+		foreach ($details as $column => $value) {
+			$columns .= "{$column},";
+			if ($column == 'filled' || $column == 'recruit_id') {
+				$values .= "{$value},";
+			} else {
+				$values .= "'{$value}',";
+			}
+		}
+		$columns = substr($columns, 0, -1);
+		$values = substr($values, 0, -1);
+
+		$query = "INSERT INTO {$this->personal_details_table} ({$columns}) VALUES ({$values})";
+		$res = $this->db->query($query);
+		return $res->rows[0];
+	}
+
+	function update_personal_details($id, $details) {
+		$query = "UPDATE {$this->personal_details_table} SET ";
+		foreach ($details as $column => $value) {
+			if ($column == 'filled') {
+				$query .= "{$column}={$value},";
+			} else {
+				$query .= "{$column} = '{$value}',";
+			}
+		}
+		$query = substr($query, 0, -1);
+		$query .= " WHERE recruit_id={$id}";
+
+		$res = $this->db->query($query);
+		return $res->rows[0];
+	}
+
+	public function registration_details($id) {
+		$id = (int) $id;
+		$query = "SELECT * FROM {$this->personal_details_table} WHERE recruit_id={$id}";
+		return $this->db->query($query)->rows;
+	}
+
+	public function registration_filled($id) {
+		$result = $this->registration_details((int) $id);
+		return $result[0]['filled'] == 1;
 	}
 
 	public function validate_user($email, $pwd) {

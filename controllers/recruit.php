@@ -52,11 +52,24 @@ class Recruit extends Controller {
 			$this->redirect($this->rootUrl);
 		}
 
-		$current_user = $this->model->get_user_by(Session::get('id'));
+		$current_user = $this->model->get_user_by((int)Session::get('id'));
 		if ($current_user) {
 			$this->view->data['email'] = $current_user['email'];
 			$this->view->data['sname'] = $current_user['sname'];
 			$this->view->data['fname'] = $current_user['fname'];		
+		}
+
+		if (isset($_POST['email'])) {
+			$this->handle_registration();
+		}
+
+		if ($this->model->registration_filled((int) Session::get('id'))) {
+			$this->redirect("{$this->rootUrl}/qualifications");
+		}
+
+		$details = $this->model->registration_details((int) Session::get('id'));
+		foreach ($details as $key => $value) {
+			$this->view->data["{$key}"] = $value;
 		}
 
 		$message='';
@@ -71,6 +84,49 @@ class Recruit extends Controller {
 	function experience() {
 		$message='';
     $this->view->render('recruit/experience', $noinclude=false, $message);
+	}
+
+	function handle_registration() {
+		$title = $_POST['title'];
+		$mname = $_POST['mname'];
+		$gender = $_POST['gender'];
+		$nationality = $_POST['nationality'];
+		$dob = $_POST['dob'];
+		$height = $_POST['height'];
+		$nin = $_POST['nin'];
+		$phone = $_POST['phone'];
+		$permAddress = $_POST['permAddress'];
+		$permStreet = $_POST['permStreet'];
+		$permLga = $_POST['permLga'];
+		$permState = $_POST['permState'];
+		$curAddress = $_POST['curAddress'];
+		$curStreet = $_POST['curStreet'];
+		$curLga = $_POST['curLga'];
+		$curState = $_POST['curState'];
+		$prefAddress = $_POST['prefAddress'];
+
+		$filled = $title && $gender && $nationality && $dob && $nin && $phone &&
+			$permAddress &&	$permStreet && $permLga && $permState &&
+			$curAddress &&	$curStreet && $curLga && $curState;
+
+		$details = array(
+			'title' => $title,
+			'gender' => $gender,
+			'nationality' => $nationality,
+			'dob' => $dob,
+			'nin' => $nin,
+			'phone' => $phone,
+			'permAddress' => $permAddress,
+			'permStreet' => $permStreet,
+			'permLga' => $permLga,
+			'permState' => $permState,
+			'curAddress' => $curAddress,
+			'curStreet' => $curStreet,
+			'curLga' => $curLga,
+			'curState' => $curState,
+			'filled' => $filled
+		);
+		$this->model->save_details((int)Session::get('id'), $details);
 	}
 
 	function is_signup() {

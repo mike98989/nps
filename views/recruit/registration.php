@@ -12,7 +12,7 @@
 				<div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>Title <span class="text-danger">*</span></label>
-			  		<select class="form-control" name="title">
+			  		<select value="<?php echo $title; ?>" required class="form-control" name="title">
 			  			<option value="mr">Mr</option>
 			  			<option value="mrs">Mrs</option>
 			  		</select>
@@ -21,25 +21,25 @@
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>Surname <span class="text-danger">*</span></label>
-			  		<input type="text" readonly class="form-control" name="sname" value="<?php echo $sname; ?>">
+			  		<input required type="text" readonly class="form-control" name="sname" value="<?php echo $sname; ?>">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>First name <span class="text-danger">*</span></label>
-			  		<input type="text" readonly class="form-control" name="fname" value="<?php echo $fname; ?>">
+			  		<input required type="text" readonly class="form-control" name="fname" value="<?php echo $fname; ?>">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>Middle name</label>
-			  		<input type="text" class="form-control" name="mname">
+			  		<input value="<?php echo $mnane; ?>" type="text" class="form-control" name="mname">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>Gender <span class="text-danger">*</span></label>
-			  		<select name="gender" class="form-control">
+			  		<select value="<?php echo $gender; ?>" required name="gender" class="form-control">
 			  			<option value="female">Female</option>
 			  			<option value="male">Male</option>
 			  		</select>
@@ -48,7 +48,7 @@
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>Nationality <span class="text-danger">*</span></label>
-			  		<select name="nationality" class="form-control">
+			  		<select value="<?php echo $nationality; ?>" required name="nationality" class="form-control">
 			  			<option value="Nigeria">Nigeria</option>
 			  		</select>
 			  	</div>
@@ -56,31 +56,31 @@
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>Date of Birth <span class="text-danger">*</span></label>
-			  		<input type="date" name="dob" class="form-control">
+			  		<input value="<?php echo $dob; ?>" required type="date" name="dob" class="form-control">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>Height</label>
-			  		<input type="text" name="height" class="form-control">
+			  		<input value="<?php echo $height; ?>" type="text" name="height" class="form-control">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>National Identification Number <span class="text-danger">*</span></label>
-			  		<input type="text" name="nin"  class="form-control">
+			  		<input value="<?php echo $nin; ?>" required type="text" name="nin"  class="form-control">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>E-mail <span class="text-danger">*</span></label>
-			  		<input type="email" readonly name="email"  class="form-control" value="<?php echo $email; ?>">
+			  		<input required type="email" readonly name="email"  class="form-control" value="<?php echo $email; ?>">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>Telephone number <span class="text-danger">*</span></label>
-			  		<input type="phone" name="phone" class="form-control">
+			  		<input value="<?php echo $phone; ?>" required type="phone" name="phone" class="form-control">
 			  	</div>
 			  </div>
 			</div>
@@ -90,19 +90,19 @@
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Address</label>
-				  		<input type="text" name="permAddress"  class="form-control">
+				  		<input value="<?php echo $permAddress; ?>" required type="text" name="permAddress"  class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Street/House number</label>
-				  		<input type="text" name="permStreet"  class="form-control">
+				  		<input value="<?php echo $permStreet; ?>" required type="text" name="permStreet"  class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>LGA</label>
-				  		<select name="permLga" class="form-control">
+				  		<select value="<?php echo $permLga; ?>" required name="permLga" class="form-control">
 				  			<option value="temp">Temp</option>
 				  		</select>
 				  	</div>
@@ -110,7 +110,7 @@
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>State</label>
-				  		<select name="permState" class="form-control">
+				  		<select value="<?php echo $permState; ?>" required name="permState" class="form-control">
 				  			<option value="state">State</option>
 				  		</select>
 				  	</div>
@@ -121,19 +121,19 @@
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Address</label>
-				  		<input type="text" name="curAddress"  class="form-control">
+				  		<input value="<?php echo $curAddress; ?>" required type="text" name="curAddress"  class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Street/House number</label>
-				  		<input type="text" name="curStreet"  class="form-control">
+				  		<input value="<?php echo $curStreet; ?>" required type="text" name="curStreet"  class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>LGA</label>
-				  		<select name="curLga" class="form-control">
+				  		<select value="<?php echo $curLga; ?>" required name="curLga" class="form-control">
 				  			<option value="temp">Temp</option>
 				  		</select>
 				  	</div>
@@ -141,7 +141,7 @@
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>State</label>
-				  		<select name="curState" class="form-control">
+				  		<select value="<?php echo $curState; ?>" required name="curState" class="form-control">
 				  			<option value="temp">Temp</option>
 				  		</select>
 				  	</div>
@@ -150,7 +150,7 @@
 				<div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>Preferred address or Contact</label>
-			  		<textarea name="prefAddress" class="form-control"></textarea>
+			  		<textarea name="prefAddress" class="form-control"><?php echo $prefAddress; ?></textarea>
 			  	</div>
 			  </div>			
 			</div>
