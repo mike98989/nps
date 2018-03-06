@@ -21,13 +21,13 @@
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>Surname</label>
-			  		<input type="text" readonly class="form-control" name="sname" value="<?php echo $fname; ?>">
+			  		<input type="text" readonly class="form-control" name="sname" value="<?php echo $sname; ?>">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label>First name</label>
-			  		<input type="text" readonly class="form-control" name="fname" value="<?php echo $lname; ?>">
+			  		<input type="text" readonly class="form-control" name="fname" value="<?php echo $fname; ?>">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">

@@ -124,6 +124,11 @@
                   <a id="nav-link--features" class="nav-link g-py-7 g-px-0" href="<?php echo URL;?>contact_us" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--features">Contact Us</a>
 
                 </li>
+
+            <li class="nav-item  g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn" data-animation-out="fadeOut">
+                  <a id="nav-link--features" class="nav-link g-py-7 g-px-0" href="<?php echo URL;?>recruit" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--features">Recruitment</a>
+
+                </li>
             </div>
             <!-- End Navigation -->
           </div>

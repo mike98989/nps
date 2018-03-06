@@ -28,8 +28,6 @@ class Recruit extends Controller {
 
 			$this->model->insert_user($fname, $lname, $email, $password);
 			$this->login_user($email);
-			Session::set('fname', $fname);
-			Session::set('lname', $lname);
 			$this->redirect("{$this->rootUrl}/registration");
 		}
 
@@ -54,9 +52,12 @@ class Recruit extends Controller {
 			$this->redirect($this->rootUrl);
 		}
 
-		$this->view->data['email'] = Session::get('email');
-		$this->view->data['lname'] = Session::get('lname');
-		$this->view->data['fname'] = Session::get('fname');
+		$current_user = $this->model->get_user_by(Session::get('id'));
+		if ($current_user) {
+			$this->view->data['email'] = $current_user['email'];
+			$this->view->data['sname'] = $current_user['sname'];
+			$this->view->data['fname'] = $current_user['fname'];		
+		}
 
 		$message='';
     $this->view->render('recruit/registration', $noinclude=false, $message);
@@ -81,9 +82,13 @@ class Recruit extends Controller {
 	}
 
 	function login_user($email) {
-		Session::init();
-		Session::set('loggedIn', true);
-		Session::set('email', $email);
+		$user = $this->model->get_user_by($email, 'email');
+		
+		if ($user) {
+			Session::init();
+			Session::set('loggedIn', true);
+			Session::set('id', $user['id']);
+		}
 	}
     
     
