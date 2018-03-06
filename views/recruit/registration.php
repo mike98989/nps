@@ -11,7 +11,7 @@
 			<div class="col-md-6 col-sm-12">
 				<div class="row mb-3">
 			  	<div class="col-md-12">
-			  		<label>Title</label>
+			  		<label>Title <span class="text-danger">*</span></label>
 			  		<select class="form-control" name="title">
 			  			<option value="mr">Mr</option>
 			  			<option value="mrs">Mrs</option>
@@ -20,13 +20,13 @@
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
-			  		<label>Surname</label>
+			  		<label>Surname <span class="text-danger">*</span></label>
 			  		<input type="text" readonly class="form-control" name="sname" value="<?php echo $sname; ?>">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
-			  		<label>First name</label>
+			  		<label>First name <span class="text-danger">*</span></label>
 			  		<input type="text" readonly class="form-control" name="fname" value="<?php echo $fname; ?>">
 			  	</div>
 			  </div>
@@ -38,7 +38,7 @@
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
-			  		<label>Gender</label>
+			  		<label>Gender <span class="text-danger">*</span></label>
 			  		<select name="gender" class="form-control">
 			  			<option value="female">Female</option>
 			  			<option value="male">Male</option>
@@ -47,7 +47,7 @@
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
-			  		<label>Nationality</label>
+			  		<label>Nationality <span class="text-danger">*</span></label>
 			  		<select name="nationality" class="form-control">
 			  			<option value="Nigeria">Nigeria</option>
 			  		</select>
@@ -55,7 +55,7 @@
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
-			  		<label>Date of Birth</label>
+			  		<label>Date of Birth <span class="text-danger">*</span></label>
 			  		<input type="date" name="dob" class="form-control">
 			  	</div>
 			  </div>
@@ -67,26 +67,26 @@
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
-			  		<label>National Identification Number</label>
+			  		<label>National Identification Number <span class="text-danger">*</span></label>
 			  		<input type="text" name="nin"  class="form-control">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
-			  		<label>E-mail</label>
+			  		<label>E-mail <span class="text-danger">*</span></label>
 			  		<input type="email" readonly name="email"  class="form-control" value="<?php echo $email; ?>">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
-			  		<label>Telephone number</label>
+			  		<label>Telephone number <span class="text-danger">*</span></label>
 			  		<input type="phone" name="phone" class="form-control">
 			  	</div>
 			  </div>
 			</div>
 			<div class="col-md-6 col-sm-12">
 			  <fieldset>
-				  <legend>Permanent Address:</legend>
+				  <legend>Permanent Address: <span class="text-danger">*</span></legend>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Address</label>
@@ -117,11 +117,17 @@
 				  </div>
 				</fieldset>
 			  <fieldset>
-				  <legend>Current Address:</legend>
+				  <legend>Current Address: <span class="text-danger">*</span></legend>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Address</label>
 				  		<input type="text" name="curAddress"  class="form-control">
+				  	</div>
+				  </div>
+				  <div class="row mb-3">
+				  	<div class="col-md-12">
+				  		<label>Street/House number</label>
+				  		<input type="text" name="curStreet"  class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">

@@ -341,3 +341,10 @@ you can use the generic selector below, but it's slower:
 .et-icon-dribbble:before {
 	content: "\e063";
 }
+
+fieldset {
+	border: 1px solid #eee;
+	margin: 2px 0px;
+	padding: 4.9px 10.5px 8.75px 10.5px;
+	border-radius: 5px;
+}
