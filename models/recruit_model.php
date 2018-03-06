@@ -6,6 +6,8 @@ class recruit_Model extends Model {
 		parent::__construct();
     $this->table = 'recruit';
     $this->personal_details_table = 'personal_details';
+    $this->edu_qualifactions_table = 'educational_qualifications';
+    $this->prof_qualifactions_table = 'professional_qualifications';
 	}
 
 	public function email_exists($email) {
@@ -18,12 +20,23 @@ class recruit_Model extends Model {
 		$pwd_hash = password_hash($pwd, PASSWORD_DEFAULT);
 		$query = "INSERT INTO {$this->table}(fname, sname, email, password) VALUES ('{$fname}', '{$sname}', '{$email}', '{$pwd_hash}')";
 		
-		return $this->db->query($query)->rows;
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows;
+	}
+
+	public function load_educationals($id) {
+		$query = "SELECT * FROM {$this->edu_qualifactions_table} WHERE recruit_id={$id}";
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows;
+	}
+
+	public function load_professionals($id) {
+		$query = "SELECT * FROM {$this->prof_qualifactions_table} WHERE recruit_id={$id}";
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows;
 	}
 
 	public function save_details($id, $details) {
-		$id = (int) $id;
-
 		$query = "SELECT COUNT(*) AS result FROM {$this->personal_details_table} WHERE recruit_id={$id}";
 		$result = $this->db->query($query)->rows;
 
@@ -50,7 +63,7 @@ class recruit_Model extends Model {
 		$values = substr($values, 0, -1);
 
 		$query = "INSERT INTO {$this->personal_details_table} ({$columns}) VALUES ({$values})";
-		$res = $this->db->query($query);
+		$res = $this->db->query($query) or die(mysql_error());
 		return $res->rows[0];
 	}
 
@@ -66,14 +79,39 @@ class recruit_Model extends Model {
 		$query = substr($query, 0, -1);
 		$query .= " WHERE recruit_id={$id}";
 
-		$res = $this->db->query($query);
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows[0];
+	}
+
+	function insert_qualification($details) {
+		$columns = "";
+		$values = "";
+		foreach ($details as $column => $value) {
+			$columns .= "{$column},";
+			if ($column == 'recruit_id') {
+				$values .= "{$value},";
+			} else {
+				$values .= "'{$value}',";
+			}
+		}
+		$columns = substr($columns, 0, -1);
+		$values = substr($values, 0, -1);
+
+		$query = "INSERT INTO {$this->edu_qualifactions_table} ({$columns}) VALUES ({$values})";
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows[0];
+	}
+
+	function delete_qualification($id, $recruit_id) {
+		$query = "DELETE FROM {$this->edu_qualifactions_table} WHERE id={$id} AND recruit_id={$recruit_id}";
+		$res = $this->db->query($query) or die(mysql_error());
 		return $res->rows[0];
 	}
 
 	public function registration_details($id) {
-		$id = (int) $id;
 		$query = "SELECT * FROM {$this->personal_details_table} WHERE recruit_id={$id}";
-		return $this->db->query($query)->rows;
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows;
 	}
 
 	public function registration_filled($id) {
@@ -100,7 +138,8 @@ class recruit_Model extends Model {
 			$query = "SELECT * FROM {$this->table} WHERE email='{$param}'";
 		}
 
-		return $this->db->query($query)->rows[0];
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows[0];
 	}
 
    

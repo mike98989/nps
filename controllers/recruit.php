@@ -52,7 +52,9 @@ class Recruit extends Controller {
 			$this->redirect($this->rootUrl);
 		}
 
-		$current_user = $this->model->get_user_by((int)Session::get('id'));
+		$id = (int) Session::get('id');
+
+		$current_user = $this->model->get_user_by($id);
 		if ($current_user) {
 			$this->view->data['email'] = $current_user['email'];
 			$this->view->data['sname'] = $current_user['sname'];
@@ -63,11 +65,11 @@ class Recruit extends Controller {
 			$this->handle_registration();
 		}
 
-		if ($this->model->registration_filled((int) Session::get('id'))) {
+		if ($this->model->registration_filled($id)) {
 			$this->redirect("{$this->rootUrl}/qualifications");
 		}
 
-		$details = $this->model->registration_details((int) Session::get('id'));
+		$details = $this->model->registration_details($id);
 		foreach ($details as $key => $value) {
 			$this->view->data["{$key}"] = $value;
 		}
@@ -77,6 +79,35 @@ class Recruit extends Controller {
 	}
 
 	function qualifications() {
+		if (!Session::get('loggedIn')) {
+			$this->redirect($this->rootUrl);
+		}
+
+		$id = (int) Session::get('id');
+
+		if ($_POST['form'] == 'next') {
+			$this->redirect("{$this->rootUrl}/experience");
+		}
+
+		if ($_POST['form'] == 'professional') {
+			$this->create_professional();
+		}
+
+		if ($_POST['form'] == 'educational') {
+			$this->create_qualification();
+		}
+
+		if ($_POST['form'] == 'delete_professional') {
+			$this->delete_professional();
+		}
+
+		if ($_POST['form'] == 'delete_educational') {
+			$this->delete_qualification();
+		}
+
+		$this->view->data['educationals'] = $this->model->load_educationals($id);
+		$this->view->data['professionals'] = $this->model->load_professionals($id);
+
 		$message='';
     $this->view->render('recruit/qualifications', $noinclude=false, $message);
 	}
@@ -127,6 +158,32 @@ class Recruit extends Controller {
 			'filled' => $filled
 		);
 		$this->model->save_details((int)Session::get('id'), $details);
+	}
+
+	function create_professional() {
+		;
+	}
+
+	function delete_professional() {
+		;
+	}
+
+	function create_qualification() {
+		$details = array(
+			'startdate' => $_POST['startdate'],
+			'enddate' => $_POST['enddate'],
+			'institution' => $_POST['institution'],
+			'qualification' => $_POST['qualification'],
+			'city' => $_POST['city'],
+			'country' => $_POST['country'],
+			'recruit_id' => ((int) Session::get('id'))
+		);
+		$this->model->insert_qualification($details);
+	}
+
+	function delete_qualification() {
+		$id = (int) $_POST['id'];
+		$this->model->delete_qualification($id, (int) Session::get('id'));
 	}
 
 	function is_signup() {

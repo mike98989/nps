@@ -11,45 +11,44 @@
 			<fieldset>
 			  <legend>Add Educational Qualification:</legend>
 			  <form action="" method="post">
+			  	<input type="hidden" name="form" value="educational">
 				  <div class="row mb-3">
 				  	<div class="col-md-6 col-sm-12">
 				  		<label>Start date</label>
-				  		<input type="date" name="startDate"  class="form-control">
+				  		<input type="date" name="startdate" required class="form-control">
 				  	</div>
 				  	<div class="col-md-6 col-sm-12">
 				  		<label>End date</label>
-				  		<input type="date" name="endDate"  class="form-control">
+				  		<input type="date" name="enddate" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Educational Qualification</label>
-				  		<input type="text" name="qualification"  class="form-control">
+				  		<input type="text" name="qualification" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Educational Institution</label>
-				  		<input type="text" name="institution"  class="form-control">
+				  		<input type="text" name="institution" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
-				  	<div class="col-md-12">
+				  	<div class="col-sm-12 col-md-6">
 				  		<label>City</label>
-				  		<input type="text" name="city"  class="form-control">
+				  		<input type="text" name="city" required class="form-control">
 				  	</div>
-				  </div>
-				  <div class="row mb-3">
-				  	<div class="col-md-12">
+				  	<div class="col-sm-12 col-md-6">
 				  		<label>Country</label>
-				  		<select name="country" class="form-control">
+				  		<select required name="country" class="form-control">
 				  			<option value="temp">Temp</option>
 				  		</select>
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12 text-center">
-				  		<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="button">Add</button>
+				  		<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="submit">Add</button>
 				  	</div>
 				  </div>
 			  </form>
@@ -60,34 +59,31 @@
 		  <fieldset>
 			  <legend>Add Additional Qualification/Professional Certificate:</legend>
 			  <form action="" method="post">
+			  	<input type="hidden" name="form" value="professional">
 				  <div class="row mb-3">
-				  	<div class="col-md-12">
+				  	<div class="col-sm-12 col-md-6">
 				  		<label>Start date</label>
-				  		<input type="date" name="pStart"  class="form-control">
+				  		<input type="date" name="startdate" required class="form-control">
 				  	</div>
-				  </div>
-				  <div class="row mb-3">
-				  	<div class="col-md-12">
+				  	<div class="col-sm-12 col-md-6">
 				  		<label>End date</label>
-				  		<input type="date" name="pStart"  class="form-control">
+				  		<input type="date" name="enddate" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Institution</label>
-				  		<input type="text" name="inst"  class="form-control">
+				  		<input type="text" name="institution" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
-				  	<div class="col-md-12">
+				  	<div class="col-md-6 col-sm-12">
 				  		<label>City</label>
-				  		<input type="text" name="pCity"  class="form-control">
+				  		<input type="text" name="city" required class="form-control">
 				  	</div>
-				  </div>
-				  <div class="row mb-3">
-				  	<div class="col-md-12">
+				  	<div class="col-md-6 col-sm-12">
 				  		<label>Country</label>
-				  		<select name="pCountry" class="form-control">
+				  		<select required name="country" class="form-control">
 				  			<option value="temp">Temp</option>
 				  		</select>
 				  	</div>
@@ -95,36 +91,36 @@
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Professional/Reg No.</label>
-				  		<input type="text" name="inst"  class="form-control">
+				  		<input type="text" name="reg_no" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Educational Level</label>
-				  		<input type="text" name="level"  class="form-control">
+				  		<input type="text" name="level" class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Grade</label>
-				  		<input type="text" name="grade"  class="form-control">
+				  		<input type="text" name="grade" class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Field of Study</label>
-				  		<input type="text" name="fos"  class="form-control">
+				  		<input type="text" name="fos" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label>Highest qualification</label>
-				  		<input type="text" name="hQual"  class="form-control">
+				  		<input type="text" name="highest_qual" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12 text-center">
-				  		<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="button">Add</button>
+				  		<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="submit">Add</button>
 				  	</div>
 				  </div>
 			  </form>
@@ -148,15 +144,24 @@
 			    </tr>
 			  </thead>
 			  <tbody>
+			  	<?php foreach ($educationals as $edu) { ?>
 			    <tr>
-			      <td>2014-10-10</td>
-			      <td>2016-10-10</td>
-			      <td>B. Sc.</td>
-			      <td>School</td>
-			      <td>Warri</td>
-			      <td>Nigeria</td>
-			      <td class="text-center" style="font-size: 1.5rem;cursor: pointer;">&times;</td>
+			      <td><?php echo $edu['startdate']; ?></td>
+			      <td><?php echo $edu['enddate']; ?></td>
+			      <td><?php echo $edu['qualification']; ?></td>
+			      <td><?php echo $edu['institution']; ?></td>
+			      <td><?php echo $edu['city']; ?></td>
+			      <td><?php echo $edu['country']; ?></td>
+			      <td class="text-center" style="font-size: 1.5rem;cursor: pointer;">
+			      	<form action="" class="form-inline" method="post">
+			      		<input type="hidden" name="form" value="delete_educational">
+			      		<input type="hidden" name="id" value="<?php echo $edu['id']; ?>">
+			      		<button type="submit" class="btn btn-link" style="font-size: 1.5rem;cursor: pointer;">&times;</button>
+			      	</form>
+			      	
+			      </td>
 			    </tr>
+			    <?php } ?>
 			  </tbody>
 			</table>			
 		</div>
@@ -173,38 +178,49 @@
 			      <th scope="col">City</th>
 			      <th scope="col">Country</th>
 			      <th scope="col">Reg No.</th>
-			      <th scope="col">Level</th>
+			      <th scope="col">Edu. Level</th>
 			      <th scope="col">Grade</th>
 			      <th scope="col">Field</th>
-			      <th scope="col">Qualification</th>
+			      <th scope="col">Highest Qualification</th>
 			      <th scope="col">Remove</th>
 			    </tr>
 			  </thead>
 			  <tbody>
+			  	<?php foreach ($professionals as $prof) { ?>
 			    <tr>
-			      <td>2014-10-10</td>
-			      <td>2016-10-10</td>
-			      <td>School</td>
-			      <td>Warri</td>
-			      <td>Nigeria</td>
-			      <td>1010101</td>
-			      <td>B. Sc.</td>
-			      <td>Grade</td>
-			      <td>Computer Science</td>
-			      <td>Computer Science</td>
-			      <td>B. Sc.</td>
-			      <td class="text-center" style="font-size: 1.5rem;cursor: pointer;">&times;</td>
+			      <td><?php echo $prof['startdate']; ?></td>
+			      <td><?php echo $prof['enddate']; ?></td>
+			      <td><?php echo $prof['institution']; ?></td>
+			      <td><?php echo $prof['city']; ?></td>
+			      <td><?php echo $prof['country']; ?></td>
+			      <td><?php echo $prof['reg_no']; ?></td>
+			      <td><?php echo $prof['level']; ?></td>
+			      <td><?php echo $prof['grade']; ?></td>
+			      <td><?php echo $prof['fos']; ?></td>
+			      <td><?php echo $prof['highest_qual']; ?></td>
+			      <td class="text-center">
+			      	<form action="" class="form-inline">
+			      		<input type="hidden" name="form" value="delete_professional">
+			      		<input type="hidden" name="id" value="<?php echo $prof['id']; ?>">
+			      		<button type="submit" class="btn btn-link" style="font-size: 1.5rem;cursor: pointer;">&times;</button>
+			      	</form>
+			      	
+			      </td>
 			    </tr>
+			    <?php } ?>
 			  </tbody>
 			</table>			
 		</div>
 	</div>
-	<div class="row mb-3">
-		<div class="col-sm-6 text-center">
+	<div class="row mt-3 mb-3">
+		<!-- <div class="col-sm-6 text-center">
 			<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="button">Back</button>
-		</div>
-		<div class="col-sm-6" style="text-align: center;">
-			<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="button">Save and proceed</button>
+		</div> -->
+		<div class="col-sm-12" style="text-align: center;">
+			<form action="" method="post">
+				<input type="hidden" name="form" value="next">
+				<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="submit">Save and proceed</button>
+			</form>
 		</div>
 	</div>
   

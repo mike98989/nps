@@ -56,6 +56,33 @@ CREATE TABLE IF NOT EXISTS `personal_details` (
   `prefAddress` tinytext,
   `filled` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `educational_qualifications` (
+  `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `recruit_id` int(11) UNSIGNED,
+  `startdate` varchar(20) NOT NULL,
+  `enddate` varchar(20) NOT NULL,
+  `qualification` tinytext NOT NULL,
+  `institution` tinytext NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `country` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `professional_qualifications` (
+  `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `recruit_id` int(11) UNSIGNED,
+  `startdate` varchar(20) NOT NULL,
+  `enddate` varchar(20) NOT NULL,
+  `qualification` tinytext,
+  `institution` tinytext NOT NULL,
+  `city` varchar(50),
+  `country` varchar(50),
+  `reg_no` varchar(50),
+  `level` varchar(50),
+  `grade` varchar(50),
+  `fos` tinytext,
+  `highest_qual` tinytext
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
