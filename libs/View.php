@@ -7,6 +7,7 @@ public $data = array();
          error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
         Session::init();
 		//echo 'this is the view';
+        $this->view = new \stdClass();
 		//if(Session::get('loggedIn')){
 		$this->view->logged = Session::get('loggedIn');
 		$this->view->loggedType = Session::get('loggedType');
@@ -35,6 +36,25 @@ public $data = array();
             if(($this->view->loggedType == 'admin')&&($url[1]=='admindashboard')){
 			//echo 'yessss';
 			}
+            
+            
+            
+            ////IF THE USER IS HR
+            elseif(($this->view->loggedType == 'hr')&&($url[1]=='hr')){
+			  /////ASSIGN JAVASCRIPT   
+            $js=null;    
+            if(!empty($this->js)){   
+            $js=$this->js;    
+            }
+                
+                
+			require 'views/hr/snipets/headerref.php';
+			require 'views/hr/snipets/header.php';
+			require 'views/' . $name . '.php';           
+			require 'views/hr/snipets/footer.php';     
+			require 'views/hr/snipets/footerref.php';
+			}
+            
             
 			////ELSE IF THE USER IS FULLY INTEGRATED
 			elseif(($this->view->loggedType == 'user')&&($url[1]=='cms')){

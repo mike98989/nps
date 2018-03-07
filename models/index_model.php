@@ -19,7 +19,7 @@
     }  
 
         ///////GETTING ALL NEWS
-    function get_all_news($json){
+    function get_all_news($json=false){
     $news = $this->db->query("SELECT * FROM news WHERE status=1 ORDER BY id DESC")or die(mysql_error());
         //print_r($songs);
         if($json==true){
@@ -32,7 +32,7 @@
     }
 
     ///////GETTING HOME CONTENT
-    function get_home_content($json){
+    function get_home_content($json=false){
     $home_content = $this->db->query("SELECT * FROM home_content")or die(mysql_error());
         //print_r($songs);
         if($json==true){

@@ -44,7 +44,7 @@ class Recruit extends Controller {
 		}
 
 		$message='';
-    $this->view->render('recruit/index', $noinclude=false, $message);
+        $this->view->render('recruit/index', $noinclude=false, $message);
 	}
 
 	function registration() {
