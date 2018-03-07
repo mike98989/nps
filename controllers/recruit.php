@@ -9,6 +9,12 @@ class Recruit extends Controller {
     $this->view->scripts = array('public/js/validateForms.js');
 	}
 
+	function done() {
+		$message='';
+		$this->view->data['home'] = $this->rootUrl;
+    $this->view->render('recruit/done', $noinclude=false, $message);
+	}
+
 	function index() {
 		if (Session::get('loggedIn')) {
 			$this->redirect("{$this->rootUrl}/registration");
@@ -38,6 +44,10 @@ class Recruit extends Controller {
 			if(!$this->model->validate_user($email, $password)) {
 				$this->view->data['loginErrorMessage'] = 'Invalid email or password';
 			} else {
+				$user = $this->model->get_user_by($email, 'email');
+				if ($user['filled']) {
+					$this->redirect("{$this->rootUrl}/done");
+				}
 				$this->login_user($email);
 				$this->redirect("{$this->rootUrl}/registration");
 			}
@@ -121,7 +131,7 @@ class Recruit extends Controller {
 		$id = (int) Session::get('id');
 
 		if ($_POST['form'] == 'next') {
-			$this->redirect("{$this->rootUrl}/experience");
+			$this->redirect("{$this->rootUrl}/attachments");
 		}
 
 		if ($_POST['form'] == 'back') {
@@ -137,9 +147,79 @@ class Recruit extends Controller {
 		}
 
 		$this->view->data['experience'] = $this->model->load_experience($id);
-		
+
 		$message='';
     $this->view->render('recruit/experience', $noinclude=false, $message);
+	}
+
+	function attachments() {
+		if (!Session::get('loggedIn')) {
+			$this->redirect($this->rootUrl);
+		}
+
+		$id = (int) Session::get('id');
+		$size_limit = constant("UPLOAD_SIZE");
+		$acceptable_types = constant("UPLOAD_TYPES");
+		$file_store = constant("UPLOAD_DIR");
+
+		if ($_POST['form'] == 'next') {
+			$this->model->set_complete($id);
+			Session::destroy();
+			$this->redirect("{$this->rootUrl}/done");
+		}
+
+		if ($_POST['form'] == 'back') {
+			$this->redirect("{$this->rootUrl}/experience");
+		}
+
+		if ($_POST['form'] == 'delete_attachment') {
+			$path = $this->model->get_attachment_path((int) $_POST['id'], $id);
+
+			if ($path) {
+				unlink("{$file_store}/{$path}");
+				$this->model->delete_attachment((int) $_POST['id'], $id);
+			}
+		}
+
+		if ($_POST['form'] == 'attachment') {
+			if(($_FILES['file']['size'] >= $size_limit) || ($_FILES["file"]["size"] == 0)) {
+        $this->view->data['err_msg'] = 'File must be less than 2 megabytes.';
+
+        $message='';
+  			$this->view->render('recruit/attachments', $noinclude=false, $message);
+  			return;
+	    }
+
+	    if(!in_array($_FILES['file']['type'], $acceptable_types) && (!empty($_FILES["file"]["type"]))) {
+        $this->view->data['err_msg'] = 'Only PDF, JPG, PNG and Word files are accepted.';
+        
+        $message='';
+  			$this->view->render('recruit/attachments', $noinclude=false, $message);
+  			return;
+	    }
+
+	    if (!is_dir($file_store)) {
+		    mkdir($file_store, 0777, true);
+			}
+
+	    $random_number = intval("0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9));
+	    $file_name = "{$id}_{$random_number}_{$_FILES['file']['name']}";
+			$location = "{$file_store}/{$file_name}";
+			$uploaded = move_uploaded_file($_FILES['file']['tmp_name'], $location);
+			if ($uploaded) {
+				$details = array(
+					'title' => trim($_POST['title']),
+					'path' => $file_name,
+					'recruit_id' => $id
+				);
+				$this->model->insert_attachment($details);
+			}
+		}
+
+		$this->view->data['attachments'] = $this->model->load_attachments($id);
+		
+		$message='';
+    $this->view->render('recruit/attachments', $noinclude=false, $message);
 	}
 
 	function handle_registration() {
@@ -250,8 +330,5 @@ class Recruit extends Controller {
 			Session::set('loggedIn', true);
 			Session::set('id', $user['id']);
 		}
-	}
-    
-    
-    
+	}    
 }

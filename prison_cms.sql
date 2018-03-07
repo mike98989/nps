@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS `recruit` (
   `fname` tinytext NOT NULL,
   `sname` tinytext NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `filled` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `personal_details` (
@@ -58,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `personal_details` (
 
 CREATE TABLE IF NOT EXISTS `educational_qualifications` (
   `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `recruit_id` int(11) UNSIGNED NOT NULL,
+  `recruit_id` int(11) UNSIGNED UNIQUE NOT NULL,
   `startdate` varchar(20) NOT NULL,
   `enddate` varchar(20) NOT NULL,
   `qualification` tinytext NOT NULL,
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `educational_qualifications` (
 
 CREATE TABLE IF NOT EXISTS `professional_qualifications` (
   `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `recruit_id` int(11) UNSIGNED NOT NULL,
+  `recruit_id` int(11) UNSIGNED UNIQUE NOT NULL,
   `startdate` varchar(20) NOT NULL,
   `enddate` varchar(20) NOT NULL,
   `qualification` tinytext,
@@ -85,11 +86,18 @@ CREATE TABLE IF NOT EXISTS `professional_qualifications` (
 
 CREATE TABLE IF NOT EXISTS `work_experiences` (
   `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `recruit_id` int(11) UNSIGNED NOT NULL,
+  `recruit_id` int(11) UNSIGNED UNIQUE NOT NULL,
   `startdate` varchar(20) NOT NULL,
   `enddate` varchar(20) NOT NULL,
   `role` tinytext,
   `organization` tinytext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `attachments` (
+  `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `recruit_id` int(11) UNSIGNED UNIQUE NOT NULL,
+  `title` tinytext NOT NULL,
+  `path` tinytext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
