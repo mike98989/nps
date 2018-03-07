@@ -114,6 +114,30 @@ class Recruit extends Controller {
 	}
 
 	function experience() {
+		if (!Session::get('loggedIn')) {
+			$this->redirect($this->rootUrl);
+		}
+
+		$id = (int) Session::get('id');
+
+		if ($_POST['form'] == 'next') {
+			$this->redirect("{$this->rootUrl}/experience");
+		}
+
+		if ($_POST['form'] == 'back') {
+			$this->redirect("{$this->rootUrl}/qualifications");
+		}
+
+		if ($_POST['form'] == 'delete_experience') {
+			$this->delete_experience();
+		}
+
+		if ($_POST['form'] == 'experience') {
+			$this->create_experience();
+		}
+
+		$this->view->data['experience'] = $this->model->load_experience($id);
+		
 		$message='';
     $this->view->render('recruit/experience', $noinclude=false, $message);
 	}
@@ -157,11 +181,25 @@ class Recruit extends Controller {
 	}
 
 	function create_professional() {
-		;
+		$details = array(
+			'startdate' => $_POST['startdate'],
+			'enddate' => $_POST['enddate'],
+			'institution' => $_POST['institution'],
+			'qualification' => $_POST['qualification'],
+			'city' => $_POST['city'],
+			'country' => $_POST['country'],
+			'reg_no' => $_POST['reg_no'],
+			'level' => $_POST['level'],
+			'grade' => $_POST['grade'],
+			'fos' => $_POST['fos'],
+			'highest_qual' => $_POST['highest_qual'],
+			'recruit_id' => ((int) Session::get('id'))
+		);
+		$this->model->insert_professional($details);
 	}
 
 	function delete_professional() {
-		;
+		$this->model->delete_professional((int) $_POST['id'], (int) Session::get('id'));
 	}
 
 	function create_qualification() {
@@ -178,8 +216,22 @@ class Recruit extends Controller {
 	}
 
 	function delete_qualification() {
-		$id = (int) $_POST['id'];
-		$this->model->delete_qualification($id, (int) Session::get('id'));
+		$this->model->delete_qualification((int) $_POST['id'], (int) Session::get('id'));
+	}
+
+	function create_experience() {
+		$details = array(
+			'startdate' => $_POST['startdate'],
+			'enddate' => $_POST['enddate'],
+			'organization' => $_POST['organization'],
+			'role' => $_POST['role'],
+			'recruit_id' => ((int) Session::get('id'))
+		);
+		$this->model->insert_experience($details);
+	}
+
+	function delete_experience() {
+		$this->model->delete_experience((int) $_POST['id'], (int) Session::get('id'));
 	}
 
 	function is_signup() {

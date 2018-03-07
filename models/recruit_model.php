@@ -8,6 +8,7 @@ class recruit_Model extends Model {
     $this->personal_details_table = 'personal_details';
     $this->edu_qualifactions_table = 'educational_qualifications';
     $this->prof_qualifactions_table = 'professional_qualifications';
+    $this->experience_table = 'work_experiences';
 	}
 
 	public function email_exists($email) {
@@ -32,6 +33,12 @@ class recruit_Model extends Model {
 
 	public function load_professionals($id) {
 		$query = "SELECT * FROM {$this->prof_qualifactions_table} WHERE recruit_id={$id}";
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows;
+	}
+
+	public function load_experience($id) {
+		$query = "SELECT * FROM {$this->experience_table} WHERE recruit_id={$id}";
 		$res = $this->db->query($query) or die(mysql_error());
 		return $res->rows;
 	}
@@ -100,6 +107,56 @@ class recruit_Model extends Model {
 
 	function delete_qualification($id, $recruit_id) {
 		$query = "DELETE FROM {$this->edu_qualifactions_table} WHERE id={$id} AND recruit_id={$recruit_id}";
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows[0];
+	}
+
+	function insert_professional($details) {
+		$columns = "";
+		$values = "";
+		foreach ($details as $column => $value) {
+			$columns .= "{$column},";
+			if ($column == 'recruit_id') {
+				$values .= "{$value},";
+			} else {
+				$values .= "'{$value}',";
+			}
+		}
+		$columns = substr($columns, 0, -1);
+		$values = substr($values, 0, -1);
+
+		$query = "INSERT INTO {$this->prof_qualifactions_table} ({$columns}) VALUES ({$values})";
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows[0];
+	}
+
+	function delete_professional($id, $recruit_id) {
+		$query = "DELETE FROM {$this->prof_qualifactions_table} WHERE id={$id} AND recruit_id={$recruit_id}";
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows[0];
+	}
+
+	function insert_experience($details) {
+		$columns = "";
+		$values = "";
+		foreach ($details as $column => $value) {
+			$columns .= "{$column},";
+			if ($column == 'recruit_id') {
+				$values .= "{$value},";
+			} else {
+				$values .= "'{$value}',";
+			}
+		}
+		$columns = substr($columns, 0, -1);
+		$values = substr($values, 0, -1);
+
+		$query = "INSERT INTO {$this->experience_table} ({$columns}) VALUES ({$values})";
+		$res = $this->db->query($query) or die(mysql_error());
+		return $res->rows[0];
+	}
+
+	function delete_experience($id, $recruit_id) {
+		$query = "DELETE FROM {$this->experience_table} WHERE id={$id} AND recruit_id={$recruit_id}";
 		$res = $this->db->query($query) or die(mysql_error());
 		return $res->rows[0];
 	}
