@@ -9,6 +9,12 @@ class Recruit extends Controller {
     $this->view->scripts = array('public/js/validateForms.js');
 	}
 
+	function done() {
+		$message='';
+		$this->view->data['home'] = $this->rootUrl;
+    $this->view->render('recruit/done', $noinclude=false, $message);
+	}
+
 	function index() {
 		if (Session::get('loggedIn')) {
 			$this->redirect("{$this->rootUrl}/registration");
@@ -38,6 +44,10 @@ class Recruit extends Controller {
 			if(!$this->model->validate_user($email, $password)) {
 				$this->view->data['loginErrorMessage'] = 'Invalid email or password';
 			} else {
+				$user = $this->model->get_user_by($email, 'email');
+				if ($user['filled']) {
+					$this->redirect("{$this->rootUrl}/done");
+				}
 				$this->login_user($email);
 				$this->redirect("{$this->rootUrl}/registration");
 			}
@@ -63,9 +73,6 @@ class Recruit extends Controller {
 
 		if (isset($_POST['email'])) {
 			$this->handle_registration();
-		}
-
-		if ($this->model->registration_filled($id)) {
 			$this->redirect("{$this->rootUrl}/qualifications");
 		}
 
@@ -87,6 +94,10 @@ class Recruit extends Controller {
 
 		if ($_POST['form'] == 'next') {
 			$this->redirect("{$this->rootUrl}/experience");
+		}
+
+		if ($_POST['form'] == 'back') {
+			$this->redirect("{$this->rootUrl}/registration");
 		}
 
 		if ($_POST['form'] == 'professional') {
@@ -113,8 +124,102 @@ class Recruit extends Controller {
 	}
 
 	function experience() {
+		if (!Session::get('loggedIn')) {
+			$this->redirect($this->rootUrl);
+		}
+
+		$id = (int) Session::get('id');
+
+		if ($_POST['form'] == 'next') {
+			$this->redirect("{$this->rootUrl}/attachments");
+		}
+
+		if ($_POST['form'] == 'back') {
+			$this->redirect("{$this->rootUrl}/qualifications");
+		}
+
+		if ($_POST['form'] == 'delete_experience') {
+			$this->delete_experience();
+		}
+
+		if ($_POST['form'] == 'experience') {
+			$this->create_experience();
+		}
+
+		$this->view->data['experience'] = $this->model->load_experience($id);
+
 		$message='';
     $this->view->render('recruit/experience', $noinclude=false, $message);
+	}
+
+	function attachments() {
+		if (!Session::get('loggedIn')) {
+			$this->redirect($this->rootUrl);
+		}
+
+		$id = (int) Session::get('id');
+		$size_limit = constant("UPLOAD_SIZE");
+		$acceptable_types = constant("UPLOAD_TYPES");
+		$file_store = constant("UPLOAD_DIR");
+
+		if ($_POST['form'] == 'next') {
+			$this->model->set_complete($id);
+			Session::destroy();
+			$this->redirect("{$this->rootUrl}/done");
+		}
+
+		if ($_POST['form'] == 'back') {
+			$this->redirect("{$this->rootUrl}/experience");
+		}
+
+		if ($_POST['form'] == 'delete_attachment') {
+			$path = $this->model->get_attachment_path((int) $_POST['id'], $id);
+
+			if ($path) {
+				unlink("{$file_store}/{$path}");
+				$this->model->delete_attachment((int) $_POST['id'], $id);
+			}
+		}
+
+		if ($_POST['form'] == 'attachment') {
+			if(($_FILES['file']['size'] >= $size_limit) || ($_FILES["file"]["size"] == 0)) {
+        $this->view->data['err_msg'] = 'File must be less than 2 megabytes.';
+
+        $message='';
+  			$this->view->render('recruit/attachments', $noinclude=false, $message);
+  			return;
+	    }
+
+	    if(!in_array($_FILES['file']['type'], $acceptable_types) && (!empty($_FILES["file"]["type"]))) {
+        $this->view->data['err_msg'] = 'Only PDF, JPG, PNG and Word files are accepted.';
+        
+        $message='';
+  			$this->view->render('recruit/attachments', $noinclude=false, $message);
+  			return;
+	    }
+
+	    if (!is_dir($file_store)) {
+		    mkdir($file_store, 0777, true);
+			}
+
+	    $random_number = intval("0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9));
+	    $file_name = "{$id}_{$random_number}_{$_FILES['file']['name']}";
+			$location = "{$file_store}/{$file_name}";
+			$uploaded = move_uploaded_file($_FILES['file']['tmp_name'], $location);
+			if ($uploaded) {
+				$details = array(
+					'title' => trim($_POST['title']),
+					'path' => $file_name,
+					'recruit_id' => $id
+				);
+				$this->model->insert_attachment($details);
+			}
+		}
+
+		$this->view->data['attachments'] = $this->model->load_attachments($id);
+		
+		$message='';
+    $this->view->render('recruit/attachments', $noinclude=false, $message);
 	}
 
 	function handle_registration() {
@@ -136,10 +241,6 @@ class Recruit extends Controller {
 		$curState = $_POST['curState'];
 		$prefAddress = $_POST['prefAddress'];
 
-		$filled = $title && $gender && $nationality && $dob && $nin && $phone &&
-			$permAddress &&	$permStreet && $permLga && $permState &&
-			$curAddress &&	$curStreet && $curLga && $curState;
-
 		$details = array(
 			'title' => $title,
 			'gender' => $gender,
@@ -154,18 +255,31 @@ class Recruit extends Controller {
 			'curAddress' => $curAddress,
 			'curStreet' => $curStreet,
 			'curLga' => $curLga,
-			'curState' => $curState,
-			'filled' => $filled
+			'curState' => $curState
 		);
 		$this->model->save_details((int)Session::get('id'), $details);
 	}
 
 	function create_professional() {
-		;
+		$details = array(
+			'startdate' => $_POST['startdate'],
+			'enddate' => $_POST['enddate'],
+			'institution' => $_POST['institution'],
+			'qualification' => $_POST['qualification'],
+			'city' => $_POST['city'],
+			'country' => $_POST['country'],
+			'reg_no' => $_POST['reg_no'],
+			'level' => $_POST['level'],
+			'grade' => $_POST['grade'],
+			'fos' => $_POST['fos'],
+			'highest_qual' => $_POST['highest_qual'],
+			'recruit_id' => ((int) Session::get('id'))
+		);
+		$this->model->insert_professional($details);
 	}
 
 	function delete_professional() {
-		;
+		$this->model->delete_professional((int) $_POST['id'], (int) Session::get('id'));
 	}
 
 	function create_qualification() {
@@ -182,8 +296,22 @@ class Recruit extends Controller {
 	}
 
 	function delete_qualification() {
-		$id = (int) $_POST['id'];
-		$this->model->delete_qualification($id, (int) Session::get('id'));
+		$this->model->delete_qualification((int) $_POST['id'], (int) Session::get('id'));
+	}
+
+	function create_experience() {
+		$details = array(
+			'startdate' => $_POST['startdate'],
+			'enddate' => $_POST['enddate'],
+			'organization' => $_POST['organization'],
+			'role' => $_POST['role'],
+			'recruit_id' => ((int) Session::get('id'))
+		);
+		$this->model->insert_experience($details);
+	}
+
+	function delete_experience() {
+		$this->model->delete_experience((int) $_POST['id'], (int) Session::get('id'));
 	}
 
 	function is_signup() {
@@ -202,8 +330,5 @@ class Recruit extends Controller {
 			Session::set('loggedIn', true);
 			Session::set('id', $user['id']);
 		}
-	}
-    
-    
-    
+	}    
 }

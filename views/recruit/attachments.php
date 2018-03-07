@@ -1,7 +1,7 @@
 <div class="container mb-3">
   <header class="text-center g-width-60x--md mx-auto g-mb-30">
     <div class="u-heading-v2-3--bottom g-brd-primary g-mb-20">
-      <h2 class="h3 u-heading-v2__title g-color-gray-dark-v2 text-uppercase g-font-weight-600" style="">Work Experience</h2>
+      <h2 class="h3 u-heading-v2__title g-color-gray-dark-v2 text-uppercase g-font-weight-600" style="">Attachments</h2>
     </div>
   </header>
   <div class="col-md-12" style="margin:0 auto;float:none">
@@ -9,30 +9,23 @@
 	<div class="row mb-3">
 		<div class="col-md-6 col-sm-12">
 			<fieldset>
-			  <legend>Add Work Experience:</legend>
-			  <form action="" method="post">
-      		<input type="hidden" name="form" value="experience">
+			  <legend>Add Attachment:</legend>
+			  <form action="" method="post" enctype="multipart/form-data">
+      		<input type="hidden" name="form" value="attachment">
 				  <div class="row mb-3">
-				  	<div class="col-md-6 col-sm-12">
-				  		<label>Start date</label>
-				  		<input type="date" name="startdate"  class="form-control">
-				  	</div>
-				  	<div class="col-md-6 col-sm-12">
-				  		<label>End date</label>
-				  		<input type="date" name="enddate"  class="form-control">
+				  	<div class="col-sm-12">
+				  		<label>Document title</label>
+				  		<input type="text" name="title" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
-				  		<label>Organization</label>
-				  		<input type="text" name="organization" class="form-control">
+				  		<label>File</label>
+				  		<input type="file" name="file" class="form-control" accept=".jpg,.png,.doc,.docx,.pdf">
 				  	</div>
-				  </div>
-				  <div class="row mb-3">
-				  	<div class="col-md-12">
-				  		<label>Role</label>
-				  		<input type="text" name="role" class="form-control">
-				  	</div>
+				  	<?php if (isset($err_msg)) { ?>
+				  	<small class="text-danger"><?php echo $err_msg; ?></small>
+				  	<?php }?>
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12 text-center">
@@ -44,28 +37,22 @@
 		</div>
 
 		<div class="col-md-6 col-sm-12">
-			<h3>Work experience</h3>
+			<h3>Attachments</h3>
 			<table class="table">
 			  <thead>
 			    <tr>
-			      <th scope="col">Start date</th>
-			      <th scope="col">End date</th>
-			      <th scope="col">Organization</th>
-			      <th scope="col">Role</th>
+			      <th scope="col">Title</th>
 			      <th scope="col">Remove</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	<?php for ($i=0; $i < count($experience); $i++) {  ?>
+			  	<?php for ($i=0; $i < count($attachments); $i++) {  ?>
 			    <tr>
-			      <td><?php echo $experience[$i]['startdate']; ?></td>
-			      <td><?php echo $experience[$i]['startdate']; ?></td>
-			      <td><?php echo $experience[$i]['organization']; ?></td>
-			      <td><?php echo $experience[$i]['role']; ?></td>
+			      <td><?php echo $attachments[$i]['title']; ?></td>
 			      <td class="text-center" style="font-size: 1.5rem;cursor: pointer;">
 			      <form action="" class="form-inline" method="post">
-			      		<input type="hidden" name="form" value="delete_experience">
-			      		<input type="hidden" name="id" value="<?php echo $experience[$i]['id']; ?>">
+			      		<input type="hidden" name="form" value="delete_attachment">
+			      		<input type="hidden" name="id" value="<?php echo $attachments[$i]['id']; ?>">
 			      		<button type="submit" class="btn btn-link" style="font-size: 1.5rem;cursor: pointer;">&times;</button>
 			      	</form>			      	
 			      </td>
@@ -85,7 +72,7 @@
 		<div class="col-sm-6 text-center">
 			<form action="" method="post">
 				<input type="hidden" name="form" value="next">
-				<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="submit">Save and proceed</button>
+				<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="submit">Finish</button>
 			</form>
 		</div>
 	</div>

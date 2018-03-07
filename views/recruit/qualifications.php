@@ -144,18 +144,18 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	<?php foreach ($educationals as $edu) { ?>
+			  	<?php for ($i=0; $i < count($educationals); $i++) {  ?>
 			    <tr>
-			      <td><?php echo $edu['startdate']; ?></td>
-			      <td><?php echo $edu['enddate']; ?></td>
-			      <td><?php echo $edu['qualification']; ?></td>
-			      <td><?php echo $edu['institution']; ?></td>
-			      <td><?php echo $edu['city']; ?></td>
-			      <td><?php echo $edu['country']; ?></td>
+			      <td><?php echo $educationals[$i]['startdate']; ?></td>
+			      <td><?php echo $educationals[$i]['enddate']; ?></td>
+			      <td><?php echo $educationals[$i]['qualification']; ?></td>
+			      <td><?php echo $educationals[$i]['institution']; ?></td>
+			      <td><?php echo $educationals[$i]['city']; ?></td>
+			      <td><?php echo $educationals[$i]['country']; ?></td>
 			      <td class="text-center" style="font-size: 1.5rem;cursor: pointer;">
 			      	<form action="" class="form-inline" method="post">
 			      		<input type="hidden" name="form" value="delete_educational">
-			      		<input type="hidden" name="id" value="<?php echo $edu['id']; ?>">
+			      		<input type="hidden" name="id" value="<?php echo $educationals[$i]['id']; ?>">
 			      		<button type="submit" class="btn btn-link" style="font-size: 1.5rem;cursor: pointer;">&times;</button>
 			      	</form>
 			      	
@@ -186,22 +186,22 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	<?php foreach ($professionals as $prof) { ?>
+			  	<?php  for ($i=0; $i < count($professionals); $i++) {  ?>
 			    <tr>
-			      <td><?php echo $prof['startdate']; ?></td>
-			      <td><?php echo $prof['enddate']; ?></td>
-			      <td><?php echo $prof['institution']; ?></td>
-			      <td><?php echo $prof['city']; ?></td>
-			      <td><?php echo $prof['country']; ?></td>
-			      <td><?php echo $prof['reg_no']; ?></td>
-			      <td><?php echo $prof['level']; ?></td>
-			      <td><?php echo $prof['grade']; ?></td>
-			      <td><?php echo $prof['fos']; ?></td>
-			      <td><?php echo $prof['highest_qual']; ?></td>
+			      <td><?php echo $professionals[$i]['startdate']; ?></td>
+			      <td><?php echo $professionals[$i]['enddate']; ?></td>
+			      <td><?php echo $professionals[$i]['institution']; ?></td>
+			      <td><?php echo $professionals[$i]['city']; ?></td>
+			      <td><?php echo $professionals[$i]['country']; ?></td>
+			      <td><?php echo $professionals[$i]['reg_no']; ?></td>
+			      <td><?php echo $professionals[$i]['level']; ?></td>
+			      <td><?php echo $professionals[$i]['grade']; ?></td>
+			      <td><?php echo $professionals[$i]['fos']; ?></td>
+			      <td><?php echo $professionals[$i]['highest_qual']; ?></td>
 			      <td class="text-center">
-			      	<form action="" class="form-inline">
+			      	<form action="" class="form-inline" method="post">
 			      		<input type="hidden" name="form" value="delete_professional">
-			      		<input type="hidden" name="id" value="<?php echo $prof['id']; ?>">
+			      		<input type="hidden" name="id" value="<?php echo $professionals[$i]['id']; ?>">
 			      		<button type="submit" class="btn btn-link" style="font-size: 1.5rem;cursor: pointer;">&times;</button>
 			      	</form>
 			      	
@@ -213,10 +213,13 @@
 		</div>
 	</div>
 	<div class="row mt-3 mb-3">
-		<!-- <div class="col-sm-6 text-center">
-			<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="button">Back</button>
-		</div> -->
-		<div class="col-sm-12" style="text-align: center;">
+		<div class="col-sm-6 text-center">
+			<form action="" method="post">
+				<input type="hidden" name="form" value="back">
+				<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="submit">Back</button>
+			</form>
+		</div>
+		<div class="col-sm-6 text-center">
 			<form action="" method="post">
 				<input type="hidden" name="form" value="next">
 				<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="submit">Save and proceed</button>
