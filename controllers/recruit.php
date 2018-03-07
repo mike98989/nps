@@ -63,9 +63,6 @@ class Recruit extends Controller {
 
 		if (isset($_POST['email'])) {
 			$this->handle_registration();
-		}
-
-		if ($this->model->registration_filled($id)) {
 			$this->redirect("{$this->rootUrl}/qualifications");
 		}
 
@@ -87,6 +84,10 @@ class Recruit extends Controller {
 
 		if ($_POST['form'] == 'next') {
 			$this->redirect("{$this->rootUrl}/experience");
+		}
+
+		if ($_POST['form'] == 'back') {
+			$this->redirect("{$this->rootUrl}/registration");
 		}
 
 		if ($_POST['form'] == 'professional') {
@@ -136,10 +137,6 @@ class Recruit extends Controller {
 		$curState = $_POST['curState'];
 		$prefAddress = $_POST['prefAddress'];
 
-		$filled = $title && $gender && $nationality && $dob && $nin && $phone &&
-			$permAddress &&	$permStreet && $permLga && $permState &&
-			$curAddress &&	$curStreet && $curLga && $curState;
-
 		$details = array(
 			'title' => $title,
 			'gender' => $gender,
@@ -154,8 +151,7 @@ class Recruit extends Controller {
 			'curAddress' => $curAddress,
 			'curStreet' => $curStreet,
 			'curLga' => $curLga,
-			'curState' => $curState,
-			'filled' => $filled
+			'curState' => $curState
 		);
 		$this->model->save_details((int)Session::get('id'), $details);
 	}

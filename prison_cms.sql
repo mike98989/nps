@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `recruit` (
 
 CREATE TABLE IF NOT EXISTS `personal_details` (
   `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `recruit_id` int(11) UNSIGNED UNIQUE,
+  `recruit_id` int(11) UNSIGNED UNIQUE NOT NULL,
   `title` varchar(3),
   `mname` tinytext,
   `gender` varchar(6),
@@ -53,8 +53,7 @@ CREATE TABLE IF NOT EXISTS `personal_details` (
   `curStreet` tinytext,
   `curLga` tinytext,
   `curState` tinytext,
-  `prefAddress` tinytext,
-  `filled` tinyint(1) DEFAULT 0
+  `prefAddress` tinytext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `educational_qualifications` (

@@ -53,7 +53,7 @@ class recruit_Model extends Model {
 		$values = "";
 		foreach ($details as $column => $value) {
 			$columns .= "{$column},";
-			if ($column == 'filled' || $column == 'recruit_id') {
+			if ($column == 'recruit_id') {
 				$values .= "{$value},";
 			} else {
 				$values .= "'{$value}',";
@@ -70,11 +70,7 @@ class recruit_Model extends Model {
 	function update_personal_details($id, $details) {
 		$query = "UPDATE {$this->personal_details_table} SET ";
 		foreach ($details as $column => $value) {
-			if ($column == 'filled') {
-				$query .= "{$column}={$value},";
-			} else {
-				$query .= "{$column} = '{$value}',";
-			}
+			$query .= "{$column} = '{$value}',";
 		}
 		$query = substr($query, 0, -1);
 		$query .= " WHERE recruit_id={$id}";
@@ -111,7 +107,7 @@ class recruit_Model extends Model {
 	public function registration_details($id) {
 		$query = "SELECT * FROM {$this->personal_details_table} WHERE recruit_id={$id}";
 		$res = $this->db->query($query) or die(mysql_error());
-		return $res->rows;
+		return $res->rows[0];
 	}
 
 	public function registration_filled($id) {
