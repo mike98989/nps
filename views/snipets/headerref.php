@@ -37,5 +37,5 @@
   <link rel="stylesheet" href="<?php echo URL;?>public/css/custom.css">
 <style></style></head>
 
-<body>
+<body ng-app="nps">
   <main>

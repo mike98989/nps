@@ -8,8 +8,10 @@ class recruit_Model extends Model {
     $this->personal_details_table = 'personal_details';
     $this->edu_qualifactions_table = 'educational_qualifications';
     $this->prof_qualifactions_table = 'professional_qualifications';
-    $this->experience_table = 'work_experiences';
+    $this->experience_table = 'work_experience';
     $this->attachment_table = 'attachments';
+    $this->attachments_list_table = 'attachments_list';
+    $this->country_table = 'countries';
 	}
 
 	public function email_exists($email) {
@@ -49,6 +51,17 @@ class recruit_Model extends Model {
 		$res = $this->db->query($query) or die(mysql_error());
 		return $res->rows;
 	}
+
+  public function load_attachments_list() {
+    $query = "SELECT * FROM {$this->attachments_list_table}";
+    $res = $this->db->query($query) or die(mysql_error());
+    return $res->rows;
+  }
+
+  public function load_countries() {
+    $res = $this->db->query("SELECT * FROM {$this->country_table}") or die(mysql_error());
+    return $res->rows;
+  }
 
 	public function save_details($id, $details) {
 		$query = "SELECT COUNT(*) AS result FROM {$this->personal_details_table} WHERE recruit_id={$id}";
@@ -183,7 +196,7 @@ class recruit_Model extends Model {
 		$values = substr($values, 0, -1);
 
 		$query = "INSERT INTO {$this->attachment_table} ({$columns}) VALUES ({$values})";
-		$res = $this->db->query($query) or die(mysql_error());
+    $res = $this->db->query($query) or die(mysql_error());
 		return $res->rows[0];
 	}
 

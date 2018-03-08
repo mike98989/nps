@@ -77,55 +77,23 @@
   </script>
 
 
+<!----LIBRARIES-->
+<script src="<?php echo URL; ?>public/angular/angular.js"></script>
+<script src="<?php echo URL; ?>public/angular/angular-route.js"></script>
+<script src="<?php echo URL; ?>public/js/dirPagination.js"></script>
+<script src="<?php echo URL; ?>public/angular/angular-sanitize.js"></script>
+<script src="<?php echo URL; ?>public/angular/angular-cookies.js"></script>
 
-  <div id="resolutionCaution" class="text-left g-max-width-600 g-bg-white g-pa-20" style="display: none;">
-    <button type="button" class="close" onclick="Custombox.modal.close();">
-      <i class="hs-icon hs-icon-close"></i>
-    </button>
-    <h4 class="g-mb-20">Screen resolution less than 1400px</h4>
-  </div>
+<!----MODULE-->
+<script src="<?php echo URL.'public/js/controllers/module.js';?>"></script>
 
-  <div id="copyModal" class="text-left modal-demo g-bg-white g-color-black g-pa-20" style="display: none;"></div>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="<?php echo URL;?>public/css/jquery.mCustomScrollbar.min.css">
-  <link rel="stylesheet" href="<?php echo URL;?>public/css/chosen.css">
-  <link rel="stylesheet" href="<?php echo URL;?>public/css/prism.css">
-  <link rel="stylesheet" href="<?php echo URL;?>public/css/custombox.min.css">
-  <link rel="stylesheet" href="<?php echo URL;?>public/css/spectrum.css">
-  <link rel="stylesheet" href="<?php echo URL;?>public/css/sp-dark.css">
-  <link rel="stylesheet" href="<?php echo URL;?>public/css/style-switcher.css">
-  <!-- End CSS -->
-
-  <!-- Scripts -->
-  <script src="<?php echo URL;?>public/js/chosen.jquery.js"></script>
-  <script src="<?php echo URL;?>public/js/ImageSelect.jquery.js"></script>
-  <script src="<?php echo URL;?>public/js/jquery.mCustomScrollbar.concat.min.js"></script>
-  <script src="<?php echo URL;?>public/js/custombox.min.js"></script>
-  <script src="<?php echo URL;?>public/js/clipboard.min.js"></script>
-
-  <!-- Prism -->
-  <script src="<?php echo URL;?>public/js/prism.js"></script>
-  <script src="<?php echo URL;?>public/js/prism-markup.min.js"></script>
-  <script src="<?php echo URL;?>public/js/prism-css.min.js"></script>
-  <script src="<?php echo URL;?>public/js/prism-clike.min.js"></script>
-  <script src="<?php echo URL;?>public/js/prism-javascript.min.js"></script>
-  <script src="<?php echo URL;?>public/js/prism-toolbar.min.js"></script>
-  <script src="<?php echo URL;?>public/js/prism-copy-to-clipboard.min.js"></script>
-  <!-- End Prism -->
-
-  <script src="<?php echo URL;?>public/js/hs.scrollbar.js"></script>
-  <script src="<?php echo URL;?>public/js/hs.select.js"></script>
-  <script src="<?php echo URL;?>public/js/hs.modal-window.js"></script>
-  <script src="<?php echo URL;?>public/js/hs.markup-copy.js"></script>
-
-  <script src="<?php echo URL;?>public/js/jquery.cookie.js"></script>
-  <script src="<?php echo URL;?>public/js/spectrum.js"></script>
-  <script src="<?php echo URL;?>public/js/style-switcher.js"></script>
-  <!-- End Scripts -->
-  <!-- End Style Switcher -->
+<!--- CONTROLLERS---->
+<?php if(isset($js)){foreach($js as $jsfile){
+echo "<script src=".URL.$jsfile."></script>";
+}
+}
+?>
+<script src="<?php echo URL.'public/js/controllers/directives.js';?>"></script>
 
 
-
-
-<div class="sp-container sp-hidden sp-light sp-input-disabled sp-palette-buttons-disabled sp-palette-disabled sp-initial-disabled"><div class="sp-palette-container"><div class="sp-palette sp-thumb sp-cf"></div><div class="sp-palette-button-container sp-cf"><button type="button" class="sp-palette-toggle">less</button></div></div><div class="sp-picker-container"><div class="sp-top sp-cf"><div class="sp-fill"></div><div class="sp-top-inner"><div class="sp-color" style="background-color: rgb(121, 255, 0);"><div class="sp-sat"><div class="sp-val"><div class="sp-dragger" style="top: 0px; left: 0px;"></div></div></div></div><div class="sp-clear sp-clear-display" title="Clear Color Selection" style="display: none;"></div><div class="sp-hue"><div class="sp-slider" style="top: 0px;"></div></div></div><div class="sp-alpha"><div class="sp-alpha-inner"><div class="sp-alpha-handle" style="left: 0px;"></div></div></div></div><div class="sp-input-container sp-cf"><input class="sp-input" type="text" spellcheck="false"></div><div class="sp-initial sp-thumb sp-cf"></div><div class="sp-button-container sp-cf"><a class="sp-cancel" href="https://htmlstream.com/preview/unify-v2.2/unify-main/home/home-page-10.html#">cancel</a><button type="button" class="sp-choose">choose</button></div></div></div></body></html>
+</body></html>
