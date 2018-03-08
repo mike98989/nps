@@ -16,14 +16,9 @@
 				  	<div class="col-sm-12">
 				  		<label>Document type</label>
 				  		<select onchange="toggleTitle(event);" required class="form-control">
-				  			<option value="Birth certificate">Birth certificate</option>
-				  			<option value="Age Declaration">Age Declaration</option>
-				  			<option value="Bachelors Degree">Bachelors Degree</option>
-				  			<option value="Masters Degree">Masters Degree</option>
-				  			<option value="Doctorate Degree">Doctorate Degree</option>
-				  			<option value="Diploma">Diploma</option>
-				  			<option value="Passport">Passport</option>
-				  			<option value="Other">Other</option>
+				  			<?php for ($i=0; $i < count($attachments_list); $i++) { 
+				  				echo "<option value='{$attachments_list[$i]['degree']}'>{$attachments_list[$i]['degree']}</option>";
+				  			} ?>
 				  		</select>
 				  	</div>
 				  </div>
@@ -100,7 +95,7 @@
 	titleBlock.style.display = 'none';
 
 	function toggleTitle(ev) {
-		if (ev.target.value === 'Other') {
+		if (ev.target.value === 'Others') {
 			titleBlock.style.display = 'block';
 			titleInput.value = '';
 		} else {

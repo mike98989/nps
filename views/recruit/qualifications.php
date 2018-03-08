@@ -42,7 +42,16 @@
 				  	<div class="col-sm-12 col-md-6">
 				  		<label>Country</label>
 				  		<select required name="country" class="form-control">
-				  			<option value="temp">Temp</option>
+				  			<?php for ($i=0; $i < count($countries); $i++) { 
+				  				if ($countries[$i]['name'] == "Nigeria") {
+				  				echo "<option selected value='{$countries[$i]['name']}'>{$countries[$i]['name']}</option>";
+				  					
+				  				} else {
+				  					echo "<option value='{$countries[$i]['name']}'>{$countries[$i]['name']}</option>";
+				  					
+				  				}
+				  			}
+				  			?>
 				  		</select>
 				  	</div>
 				  </div>
@@ -84,7 +93,16 @@
 				  	<div class="col-md-6 col-sm-12">
 				  		<label>Country</label>
 				  		<select required name="country" class="form-control">
-				  			<option value="temp">Temp</option>
+				  			<?php for ($i=0; $i < count($countries); $i++) { 
+				  				if ($countries[$i]['name'] == "Nigeria") {
+				  				echo "<option selected value='{$countries[$i]['name']}'>{$countries[$i]['name']}</option>";
+				  					
+				  				} else {
+				  					echo "<option value='{$countries[$i]['name']}'>{$countries[$i]['name']}</option>";
+				  					
+				  				}
+			  				} 
+				  			?>
 				  		</select>
 				  	</div>
 				  </div>

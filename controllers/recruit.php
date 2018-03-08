@@ -80,6 +80,7 @@ class Recruit extends Controller {
 		foreach ($details as $key => $value) {
 			$this->view->data["{$key}"] = $value;
 		}
+    $this->view->data['countries'] = $this->model->load_countries();
 
 		$message='';
     $this->view->render('recruit/registration', $noinclude=false, $message);
@@ -117,7 +118,8 @@ class Recruit extends Controller {
 		}
 
 		$this->view->data['educationals'] = $this->model->load_educationals($id);
-		$this->view->data['professionals'] = $this->model->load_professionals($id);
+    $this->view->data['professionals'] = $this->model->load_professionals($id);
+		$this->view->data['countries'] = $this->model->load_countries();
 
 		$message='';
     $this->view->render('recruit/qualifications', $noinclude=false, $message);
@@ -217,7 +219,7 @@ class Recruit extends Controller {
 		}
 
 		$this->view->data['attachments'] = $this->model->load_attachments($id);
-		
+		$this->view->data['attachments_list'] = $this->model->load_attachments_list();
 		$message='';
     $this->view->render('recruit/attachments', $noinclude=false, $message);
 	}
