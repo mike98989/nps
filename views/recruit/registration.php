@@ -52,7 +52,8 @@
 			  		</select>
 			  	</div>
 			  </div>
-			  <div class="row mb-3">
+                
+                 <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label  style="font-weight:bold">Nationality <span class="text-danger">*</span></label>
 			  		<select value="<?php echo $nationality; ?>" required name="nationality" class="form-control">
@@ -60,39 +61,9 @@
 			  		</select>
 			  	</div>
 			  </div>
-			  <div class="row mb-3">
-			  	<div class="col-md-12">
-			  		<label  style="font-weight:bold">Date of Birth <span class="text-danger">*</span></label>
-			  		<input value="<?php echo $dob; ?>" required type="date" name="dob" class="form-control">
-			  	</div>
-			  </div>
-			  <div class="row mb-3">
-			  	<div class="col-md-12">
-			  		<label style="font-weight:bold">Height (M)</label>
-			  		<input value="<?php echo $height; ?>" type="text" name="height" class="form-control">
-			  	</div>
-			  </div>
-			  <div class="row mb-3">
-			  	<div class="col-md-12">
-			  		<label style="font-weight:bold">National Identification Number <span class="text-danger">*</span></label>
-			  		<input value="<?php echo $nin; ?>" required type="text" name="nin"  class="form-control">
-			  	</div>
-			  </div>
-			  <div class="row mb-3">
-			  	<div class="col-md-12">
-			  		<label style="font-weight:bold">E-mail <span class="text-danger">*</span></label>
-			  		<input required type="email" readonly name="email"  class="form-control" value="<?php echo $email; ?>">
-			  	</div>
-			  </div>
-			  <div class="row mb-3">
-			  	<div class="col-md-12">
-			  		<label style="font-weight:bold">Telephone number <span class="text-danger">*</span></label>
-			  		<input value="<?php echo $phone; ?>" required type="phone" name="phone" class="form-control">
-			  	</div>
-			  </div>
-			</div>
-			<div class="col-md-6 col-sm-12">
-			  <fieldset>
+                <hr/>
+			  
+                <fieldset>
 				  <legend>Permanent Address: <span class="text-danger">*</span></legend>
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
@@ -123,6 +94,42 @@
 				  	</div>
 				  </div>
 				</fieldset>
+			</div>
+			<div class="col-md-6 col-sm-12">
+                
+			  <div class="row mb-3">
+			  	<div class="col-md-12">
+			  		<label  style="font-weight:bold">Date of Birth <span class="text-danger">*</span></label>
+			  		<input value="<?php echo $dob; ?>" required type="date" name="dob" class="form-control">
+			  	</div>
+			  </div>
+			  <div class="row mb-3">
+			  	<div class="col-md-12">
+			  		<label style="font-weight:bold">Height (M)</label>
+			  		<input value="<?php echo $height; ?>" type="text" name="height" class="form-control">
+			  	</div>
+			  </div>
+			  <div class="row mb-3">
+			  	<div class="col-md-12">
+			  		<label style="font-weight:bold">National Identification Number <span class="text-danger">*</span></label>
+			  		<input value="<?php echo $nin; ?>" required type="text" name="nin"  class="form-control">
+			  	</div>
+			  </div>
+			  <div class="row mb-3">
+			  	<div class="col-md-12">
+			  		<label style="font-weight:bold">E-mail <span class="text-danger">*</span></label>
+			  		<input required type="email" readonly name="email"  class="form-control" value="<?php echo $email; ?>">
+			  	</div>
+			  </div>
+			  <div class="row mb-3">
+			  	<div class="col-md-12">
+			  		<label style="font-weight:bold">Telephone number <span class="text-danger">*</span></label>
+			  		<input value="<?php echo $phone; ?>" required type="phone" name="phone" class="form-control">
+			  	</div>
+			  </div>
+                
+                
+			  <hr>
 			  <fieldset>
 				  <legend>Current Address: <span class="text-danger">*</span></legend>
 				  <div class="row mb-3">
@@ -156,8 +163,8 @@
 				</fieldset>
 				<div class="row mb-3">
 			  	<div class="col-md-12">
-			  		<label style="font-weight:bold">Preferred address or Contact</label>
-			  		<textarea name="prefAddress" class="form-control"><?php echo $prefAddress; ?></textarea>
+			  		<label style="font-weight:bold">Preferred address of Contact</label>
+			  		<textarea name="prefAddress" rows="5" class="form-control"><?php echo $prefAddress;?></textarea>
 			  	</div>
 			  </div>			
 			</div>

@@ -120,6 +120,7 @@ class Recruit extends Controller {
 		$this->view->data['professionals'] = $this->model->load_professionals($id);
 
 		$message='';
+    $this->view->js = array('public/js/controllers/recruit/recruitRegistrationController.js');      
     $this->view->render('recruit/qualifications', $noinclude=false, $message);
 	}
 
@@ -288,6 +289,8 @@ class Recruit extends Controller {
 			'enddate' => $_POST['enddate'],
 			'institution' => $_POST['institution'],
 			'qualification' => $_POST['qualification'],
+            'type' => $_POST['type'],
+            'classification' => $_POST['classification'],
 			'city' => $_POST['city'],
 			'country' => $_POST['country'],
 			'recruit_id' => ((int) Session::get('id'))
