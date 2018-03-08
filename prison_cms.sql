@@ -99,6 +99,28 @@ CREATE TABLE IF NOT EXISTS `attachments` (
   `title` tinytext NOT NULL,
   `path` tinytext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `attachments_list` (
+`id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `degree` tinytext NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
+INSERT INTO `attachments_list` (`id`, `degree`, `status`) VALUES
+(1, 'MPhil/Phd', 1),
+(2, 'MBA/Msc', 1),
+(3, 'MBBS', 1),
+(4, 'BSc', 1),
+(5, 'HND', 1),
+(6, 'OND', 1),
+(7, 'N.C.E', 1),
+(8, 'Diploma', 1),
+(9, 'SSCE(WAEC)', 1),
+(10, 'SSCE(NECO)', 1),
+(11, 'Vocational', 1),
+(12, 'Others', 1),
+(13, 'Birth Certificate/Age Declaration', 0),
+(14, 'Passport Photograph', 0);
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

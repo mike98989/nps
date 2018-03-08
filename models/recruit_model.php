@@ -183,9 +183,7 @@ class recruit_Model extends Model {
 		$values = substr($values, 0, -1);
 
 		$query = "INSERT INTO {$this->attachment_table} ({$columns}) VALUES ({$values})";
-    var_dump($query);
     $res = $this->db->query($query) or die(mysql_error());
-    var_dump($res);
 		return $res->rows[0];
 	}
 
