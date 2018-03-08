@@ -12,10 +12,20 @@
 			  <legend>Add Attachment:</legend>
 			  <form action="" method="post" enctype="multipart/form-data">
       		<input type="hidden" name="form" value="attachment">
-				  <div class="row mb-3">
+      		<div id="select" class="row mb-3">
+				  	<div class="col-sm-12">
+				  		<label>Document type</label>
+				  		<select onchange="toggleTitle(event);" required class="form-control">
+				  			<?php for ($i=0; $i < count($attachments_list); $i++) { 
+				  				echo "<option value='{$attachments_list[$i]['degree']}'>{$attachments_list[$i]['degree']}</option>";
+				  			} ?>
+				  		</select>
+				  	</div>
+				  </div>
+				  <div id="other" class="row mb-3">
 				  	<div class="col-sm-12">
 				  		<label>Document title</label>
-				  		<input type="text" name="title" required class="form-control">
+				  		<input id="titleInput" type="text" name="title" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
@@ -78,3 +88,20 @@
 	</div>
   
 </div>
+<script>
+	const titleBlock = document.getElementById('other')
+		titleInput = document.getElementById('titleInput');
+
+	titleBlock.style.display = 'none';
+
+	function toggleTitle(ev) {
+		if (ev.target.value === 'Others') {
+			titleBlock.style.display = 'block';
+			titleInput.value = '';
+		} else {
+			titleInput.value =  ev.target.value;
+			titleBlock.style.display = 'none';
+
+		}
+	}
+</script>

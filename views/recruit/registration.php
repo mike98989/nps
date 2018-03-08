@@ -57,7 +57,16 @@
 			  	<div class="col-md-12">
 			  		<label  style="font-weight:bold">Nationality <span class="text-danger">*</span></label>
 			  		<select value="<?php echo $nationality; ?>" required name="nationality" class="form-control">
-			  			<option value="Nigeria">Nigeria</option>
+			  			<?php for ($i=0; $i < count($countries); $i++) { 
+			  				if ($countries[$i]['name'] == "Nigeria") {
+			  				echo "<option selected value='{$countries[$i]['name']}'>{$countries[$i]['name']}</option>";
+			  					
+			  				} else {
+			  					echo "<option value='{$countries[$i]['name']}'>{$countries[$i]['name']}</option>";
+			  					
+			  				}
+			  			}
+			  			?>
 			  		</select>
 			  	</div>
 			  </div>
