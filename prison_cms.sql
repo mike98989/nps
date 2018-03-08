@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `personal_details` (
 
 CREATE TABLE IF NOT EXISTS `educational_qualifications` (
   `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `recruit_id` int(11) UNSIGNED UNIQUE NOT NULL,
+  `recruit_id` int(11) UNSIGNED NOT NULL,
   `startdate` varchar(20) NOT NULL,
   `enddate` varchar(20) NOT NULL,
   `qualification` tinytext NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `educational_qualifications` (
 
 CREATE TABLE IF NOT EXISTS `professional_qualifications` (
   `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `recruit_id` int(11) UNSIGNED UNIQUE NOT NULL,
+  `recruit_id` int(11) UNSIGNED NOT NULL,
   `startdate` varchar(20) NOT NULL,
   `enddate` varchar(20) NOT NULL,
   `qualification` tinytext,
@@ -84,9 +84,9 @@ CREATE TABLE IF NOT EXISTS `professional_qualifications` (
   `highest_qual` tinytext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `work_experiences` (
+CREATE TABLE IF NOT EXISTS `work_experience` (
   `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `recruit_id` int(11) UNSIGNED UNIQUE NOT NULL,
+  `recruit_id` int(11) UNSIGNED NOT NULL,
   `startdate` varchar(20) NOT NULL,
   `enddate` varchar(20) NOT NULL,
   `role` tinytext,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `work_experiences` (
 
 CREATE TABLE IF NOT EXISTS `attachments` (
   `id` int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `recruit_id` int(11) UNSIGNED UNIQUE NOT NULL,
+  `recruit_id` int(11) UNSIGNED NOT NULL,
   `title` tinytext NOT NULL,
   `path` tinytext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

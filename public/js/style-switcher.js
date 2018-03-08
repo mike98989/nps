@@ -24,7 +24,7 @@ if (preDefStyle != 'default') {
   $('<link class="u-predefined-style" href="' + preDefStyle + '" rel="stylesheet"></link>').insertBefore('#preDefStyle');
 }
 
-var defaults = styleSwitcher.data('defaults'),
+var defaults = styleSwitcher.data('defaults') || [{}],
   customColor = $.cookie(prefix + '.customColor') ? $.cookie(prefix + '.customColor') : defaults[0].customColor,
   outerSpaces = $.cookie(prefix + '.outerSpaces') ? $.cookie(prefix + '.outerSpaces') : defaults[0].outerSpaces,
   contentFont = $.cookie(prefix + '.contentFont') ? $.cookie(prefix + '.contentFont') : defaults[0].contentFont,

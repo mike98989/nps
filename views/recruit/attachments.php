@@ -12,10 +12,25 @@
 			  <legend>Add Attachment:</legend>
 			  <form action="" method="post" enctype="multipart/form-data">
       		<input type="hidden" name="form" value="attachment">
-				  <div class="row mb-3">
+      		<div id="select" class="row mb-3">
+				  	<div class="col-sm-12">
+				  		<label>Document type</label>
+				  		<select onchange="toggleTitle(event);" required class="form-control">
+				  			<option value="Birth certificate">Birth certificate</option>
+				  			<option value="Age Declaration">Age Declaration</option>
+				  			<option value="Bachelors Degree">Bachelors Degree</option>
+				  			<option value="Masters Degree">Masters Degree</option>
+				  			<option value="Doctorate Degree">Doctorate Degree</option>
+				  			<option value="Diploma">Diploma</option>
+				  			<option value="Passport">Passport</option>
+				  			<option value="Other">Other</option>
+				  		</select>
+				  	</div>
+				  </div>
+				  <div id="other" class="row mb-3">
 				  	<div class="col-sm-12">
 				  		<label>Document title</label>
-				  		<input type="text" name="title" required class="form-control">
+				  		<input id="titleInput" type="text" name="title" required class="form-control">
 				  	</div>
 				  </div>
 				  <div class="row mb-3">
@@ -78,3 +93,20 @@
 	</div>
   
 </div>
+<script>
+	const titleBlock = document.getElementById('other')
+		titleInput = document.getElementById('titleInput');
+
+	titleBlock.style.display = 'none';
+
+	function toggleTitle(ev) {
+		if (ev.target.value === 'Other') {
+			titleBlock.style.display = 'block';
+			titleInput.value = '';
+		} else {
+			titleInput.value =  ev.target.value;
+			titleBlock.style.display = 'none';
+
+		}
+	}
+</script>

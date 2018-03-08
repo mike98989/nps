@@ -8,7 +8,7 @@ class recruit_Model extends Model {
     $this->personal_details_table = 'personal_details';
     $this->edu_qualifactions_table = 'educational_qualifications';
     $this->prof_qualifactions_table = 'professional_qualifications';
-    $this->experience_table = 'work_experiences';
+    $this->experience_table = 'work_experience';
     $this->attachment_table = 'attachments';
 	}
 
@@ -183,7 +183,9 @@ class recruit_Model extends Model {
 		$values = substr($values, 0, -1);
 
 		$query = "INSERT INTO {$this->attachment_table} ({$columns}) VALUES ({$values})";
-		$res = $this->db->query($query) or die(mysql_error());
+    var_dump($query);
+    $res = $this->db->query($query) or die(mysql_error());
+    var_dump($res);
 		return $res->rows[0];
 	}
 
