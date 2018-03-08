@@ -12,6 +12,9 @@ class recruit_Model extends Model {
     $this->attachment_table = 'attachments';
     $this->attachments_list_table = 'attachments_list';
     $this->country_table = 'countries';
+
+    $this->lga_table = 'lgas';
+
 	}
 
 	public function email_exists($email) {
@@ -62,6 +65,13 @@ class recruit_Model extends Model {
     $res = $this->db->query("SELECT * FROM {$this->country_table}") or die(mysql_error());
     return $res->rows;
   }
+
+
+  public function load_lgas() {
+    $res = $this->db->query("SELECT * FROM {$this->lga_table}") or die(mysql_error());
+    return $res->rows;
+  }
+
 
 	public function save_details($id, $details) {
 		$query = "SELECT COUNT(*) AS result FROM {$this->personal_details_table} WHERE recruit_id={$id}";
