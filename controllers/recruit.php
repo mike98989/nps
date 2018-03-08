@@ -18,7 +18,7 @@ class Recruit extends Controller {
 	function index() {
 		if (Session::get('loggedIn')) {
 			$this->redirect("{$this->rootUrl}/registration");
-		}
+	}
 
 		if ($this->is_signup()) {
 			$fname = $_POST['fname'];
@@ -80,6 +80,7 @@ class Recruit extends Controller {
 		foreach ($details as $key => $value) {
 			$this->view->data["{$key}"] = $value;
 		}
+    $this->view->data['countries'] = $this->model->load_countries();
 
 		$message='';
     $this->view->render('recruit/registration', $noinclude=false, $message);
@@ -117,7 +118,8 @@ class Recruit extends Controller {
 		}
 
 		$this->view->data['educationals'] = $this->model->load_educationals($id);
-		$this->view->data['professionals'] = $this->model->load_professionals($id);
+    $this->view->data['professionals'] = $this->model->load_professionals($id);
+		$this->view->data['countries'] = $this->model->load_countries();
 
 		$message='';
     $this->view->js = array('public/js/controllers/recruit/recruitRegistrationController.js');      
@@ -174,51 +176,51 @@ class Recruit extends Controller {
 		}
 
 		if ($_POST['form'] == 'delete_attachment') {
-			$path = $this->model->get_attachment_path((int) $_POST['id'], $id);
+      $path = $this->model->get_attachment_path((int) $_POST['id'], $id);
 
-			if ($path) {
-				unlink("{$file_store}/{$path}");
-				$this->model->delete_attachment((int) $_POST['id'], $id);
-			}
-		}
+      if ($path) {
+        unlink("{$file_store}/{$path}");
+        $this->model->delete_attachment((int) $_POST['id'], $id);
+      }
+    }
 
-		if ($_POST['form'] == 'attachment') {
-			if(($_FILES['file']['size'] >= $size_limit) || ($_FILES["file"]["size"] == 0)) {
+    if ($_POST['form'] == 'attachment') {
+      if(($_FILES['file']['size'] >= $size_limit) || ($_FILES["file"]["size"] == 0)) {
         $this->view->data['err_msg'] = 'File must be less than 2 megabytes.';
 
         $message='';
-  			$this->view->render('recruit/attachments', $noinclude=false, $message);
-  			return;
-	    }
+        $this->view->render('recruit/attachments', $noinclude=false, $message);
+        return;
+      }
 
-	    if(!in_array($_FILES['file']['type'], $acceptable_types) && (!empty($_FILES["file"]["type"]))) {
+      if(!in_array($_FILES['file']['type'], $acceptable_types) && (!empty($_FILES["file"]["type"]))) {
         $this->view->data['err_msg'] = 'Only PDF, JPG, PNG and Word files are accepted.';
         
         $message='';
-  			$this->view->render('recruit/attachments', $noinclude=false, $message);
-  			return;
-	    }
+        $this->view->render('recruit/attachments', $noinclude=false, $message);
+        return;
+      }
 
-	    if (!is_dir($file_store)) {
-		    mkdir($file_store, 0777, true);
-			}
+      if (!is_dir($file_store)) {
+        mkdir($file_store, 0777, true);
+      }
 
-	    $random_number = intval("0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9));
-	    $file_name = "{$id}_{$random_number}_{$_FILES['file']['name']}";
-			$location = "{$file_store}/{$file_name}";
-			$uploaded = move_uploaded_file($_FILES['file']['tmp_name'], $location);
-			if ($uploaded) {
-				$details = array(
-					'title' => trim($_POST['title']),
-					'path' => $file_name,
-					'recruit_id' => $id
-				);
+      $random_number = intval("0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9));
+      $file_name = "{$id}_{$random_number}_{$_FILES['file']['name']}";
+      $location = "{$file_store}/{$file_name}";
+      $uploaded = move_uploaded_file($_FILES['file']['tmp_name'], $location);
+      if ($uploaded) {
+        $details = array(
+          'title' => trim($_POST['title']),
+          'path' => $file_name,
+          'recruit_id' => $id
+        );
 				$this->model->insert_attachment($details);
 			}
 		}
 
 		$this->view->data['attachments'] = $this->model->load_attachments($id);
-		
+		$this->view->data['attachments_list'] = $this->model->load_attachments_list();
 		$message='';
     $this->view->render('recruit/attachments', $noinclude=false, $message);
 	}
