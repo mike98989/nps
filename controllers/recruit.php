@@ -81,6 +81,13 @@ class Recruit extends Controller {
 			$this->view->data["{$key}"] = $value;
 		}
     $this->view->data['countries'] = $this->model->load_countries();
+    $this->view->data['lgas'] = $this->model->load_lgas();
+    $this->view->data['states'] = array();
+    for ($i=0; $i < count($this->view->data['lgas']); $i++) { 
+      $state = $this->view->data['lgas'][$i]['state'];
+      if (!in_array($state, $this->view->data['states']))
+      $this->view->data['states'][] = $state;
+    }
 
 		$message='';
     $this->view->render('recruit/registration', $noinclude=false, $message);
