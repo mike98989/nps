@@ -257,7 +257,7 @@ class recruit_Model extends Model {
 	}
 
 	function set_complete($id) {
-		$query = "UPDATE {$this->table} SET filled=1 WHERE id={$id}";
+    $query = "UPDATE {$this->personal_details_table} SET completed=1 WHERE recruit_id={$id}";
 		$res = $this->db->query($query) or die(mysql_error());
 		return $res->rows[0];
 	}

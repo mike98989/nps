@@ -1252,12 +1252,11 @@ CREATE TABLE IF NOT EXISTS `personal_details` (
   `curLga` tinytext,
   `curState` tinytext,
   `prefAddress` tinytext,
-  `filled` tinyint(1) DEFAULT '0',
-  `completed` int(11) NOT NULL,
-  `accepted` int(11) NOT NULL,
-  `denied` int(11) NOT NULL,
-  `verified` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `completed` tinyint(1) DEFAULT 0,
+  `accepted` tinyint(1) DEFAULT 0,
+  `denied` tinyint(1) DEFAULT 0,
+  `verified` tinyint(1) DEFAULT 0,
+  `status` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
