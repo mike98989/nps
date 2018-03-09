@@ -84,12 +84,28 @@ class Recruit extends Controller {
 
     $this->view->data['lgas'] = $this->model->load_lgas();
     $this->view->data['states'] = array();
+    $this->view->data['curLgas'] = array();
+    $this->view->data['permLgas'] = array();
+
+    $curState = $details['curState'] ?  $details['curState'] : 'Abia State';
+    $permState = $details['permState'] ?  $details['permState'] : 'Abia State';
+
     for ($i=0; $i < count($this->view->data['lgas']); $i++) { 
       $state = $this->view->data['lgas'][$i]['state'];
-      if (!in_array($state, $this->view->data['states']))
-      $this->view->data['states'][] = $state;
-    }
+      $lga = $this->view->data['lgas'][$i]['name'];
 
+      if (!in_array($state, $this->view->data['states'])) {
+        $this->view->data['states'][] = $state;
+      }
+
+      if ($state == $curState) {
+        $this->view->data['curLgas'][] = $lga;
+      }
+
+      if ($state == $permState) {
+        $this->view->data['permLgas'][] = $lga;
+      }
+    }
 
 		$message='';
     $this->view->render('recruit/registration', $noinclude=false, $message);
@@ -235,39 +251,24 @@ class Recruit extends Controller {
 	}
 
 	function handle_registration() {
-		$title = $_POST['title'];
-		$mname = $_POST['mname'];
-		$gender = $_POST['gender'];
-		$nationality = $_POST['nationality'];
-		$dob = $_POST['dob'];
-		$height = $_POST['height'];
-		$nin = $_POST['nin'];
-		$phone = $_POST['phone'];
-		$permAddress = $_POST['permAddress'];
-		$permStreet = $_POST['permStreet'];
-		$permLga = $_POST['permLga'];
-		$permState = $_POST['permState'];
-		$curAddress = $_POST['curAddress'];
-		$curStreet = $_POST['curStreet'];
-		$curLga = $_POST['curLga'];
-		$curState = $_POST['curState'];
-		$prefAddress = $_POST['prefAddress'];
-
 		$details = array(
-			'title' => $title,
-			'gender' => $gender,
-			'nationality' => $nationality,
-			'dob' => $dob,
-			'nin' => $nin,
-			'phone' => $phone,
-			'permAddress' => $permAddress,
-			'permStreet' => $permStreet,
-			'permLga' => $permLga,
-			'permState' => $permState,
-			'curAddress' => $curAddress,
-			'curStreet' => $curStreet,
-			'curLga' => $curLga,
-			'curState' => $curState
+      'title' => $_POST['title'],
+			'mname' => $_POST['mname'],
+			'gender' => $_POST['gender'],
+			'nationality' => $_POST['nationality'],
+      'dob' => $_POST['dob'],
+			'height' => $_POST['height'],
+			'nin' => $_POST['nin'],
+			'phone' => $_POST['phone'],
+			'permAddress' => $_POST['permAddress'],
+			'permStreet' => $_POST['permStreet'],
+			'permLga' => $_POST['permLga'],
+			'permState' => $_POST['permState'],
+			'curAddress' => $_POST['curAddress'],
+			'curStreet' => $_POST['curStreet'],
+			'curLga' => $_POST['curLga'],
+      'curState' => $_POST['curState'],
+			'prefAddress' => $_POST['prefAddress']
 		);
 		$this->model->save_details((int)Session::get('id'), $details);
 	}

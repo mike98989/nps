@@ -40,7 +40,7 @@
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label  style="font-weight:bold">Middle name</label>
-			  		<input value="<?php echo $mnane; ?>" type="text" class="form-control" name="mname">
+			  		<input value="<?php echo $mname; ?>" type="text" class="form-control" name="mname">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
@@ -91,8 +91,13 @@
 				  		<label style="font-weight:bold">State</label>
 				  		<select onchange="stateChanged('perm', event);" value="<?php echo $permState; ?>" required name="permState" class="form-control">
 				  			<?php for($i = 0; $i < count($states); $i++) {
-				  				echo "<option value='{$states[$i]}'>{$states[$i]}</option>";
-				  			} ?>				  			
+				  				$state = $states[$i];
+				  				if ($state == $permState) {
+				  					echo "<option value='{$state}' selected>{$state}</option>";
+				  				} else {
+				  					echo "<option value='{$state}'>{$state}</option>";
+				  				}
+				  			} ?>			  			
 				  		</select>
 				  	</div>
 				  </div>
@@ -100,12 +105,14 @@
 				  	<div class="col-md-12">
 				  		<label style="font-weight:bold">LGA</label>
 				  		<select id="permLga" value="<?php echo $permLga; ?>" required name="permLga" class="form-control">
-				  			<?php for($i = 0; $i < count($lgas); $i++) {
-				  				$name = $lgas[$i]['name'];
-				  				if ($lgas[$i]['state'] == 'Abia State') {
-				  					echo "<option value='{$name}'>{$name}</option>";
-				  				}
-				  			} ?>
+				  			<?php for($i = 0; $i < count($permLgas); $i++) {
+				  				$name = $permLgas[$i];
+		  						if ($name == $permLga) {
+			  						echo "<option selected value='{$name}'>{$name}</option>";
+		  						} else {
+			  						echo "<option value='{$name}'>{$name}</option>";
+		  						}
+				  			} ?>	
 				  		</select>
 				  	</div>
 				  </div>
@@ -163,9 +170,14 @@
 				  <div class="row mb-3">
 				  	<div class="col-md-12">
 				  		<label style="font-weight:bold">State</label>
-				  		<select onchange="stateChanged('cur', event);" value="<?php echo $curState; ?>" required name="curState" class="form-control">				  			
+				  		<select onchange="stateChanged('cur', event);" id="curState" value="<?php echo $curState; ?>" required name="curState" class="form-control">
 				  			<?php for($i = 0; $i < count($states); $i++) {
-				  				echo "<option value='{$states[$i]}'>{$states[$i]}</option>";
+				  				$state = $states[$i];
+				  				if ($state == $curState) {
+				  					echo "<option value='{$state}' selected>{$state}</option>";
+				  				} else {
+				  					echo "<option value='{$state}'>{$state}</option>";
+				  				}
 				  			} ?>	
 				  		</select>
 				  	</div>
@@ -174,11 +186,13 @@
 				  	<div class="col-md-12">
 				  		<label style="font-weight:bold">LGA</label>
 				  		<select id="curLga" value="<?php echo $curLga; ?>" required name="curLga" class="form-control">
-				  			<?php for($i = 0; $i < count($lgas); $i++) {
-				  				$name = $lgas[$i]['name'];
-				  				if ($lgas[$i]['state'] == 'Abia State') {
-				  					echo "<option value='{$name}'>{$name}</option>";
-				  				}
+				  			<?php for($i = 0; $i < count($curLgas); $i++) {
+				  				$name = $curLgas[$i];
+		  						if ($name == $curLga) {
+			  						echo "<option selected value='{$name}'>{$name}</option>";
+		  						} else {
+			  						echo "<option value='{$name}'>{$name}</option>";
+		  						}
 				  			} ?>	
 				  		</select>
 				  	</div>
