@@ -15,6 +15,14 @@ class Recruit extends Controller {
     $this->view->render('recruit/done', $noinclude=false, $message);
 	}
 
+  function logout() {
+    if (Session::get('loggedIn')) {
+      Session::destroy();
+    }
+
+    $this->redirect("{$this->rootUrl}");
+  }
+
 	function index() {
 		if (Session::get('loggedIn')) {
 			$this->redirect("{$this->rootUrl}/registration");
