@@ -3,17 +3,16 @@
     ///// THIS CONTROLS EVERY ACTIVITY ON THE INDEX PAGE
     /////////////////////////
   module.controller('recruitRegistrationController', ['$scope','$http','infogathering','user_session', function($scope, $http, datagrab, user_session) {
-
-      
     $scope.dirlocation=datagrab.dirlocation;
-   $scope.currentPage = 1;
+    $scope.currentPage = 1;
     $scope.pageSize = 10;
 
     //////////FETCH ALL RELATED TABLES
    $http.get("http://"+datagrab.dirlocation+"recruit_api/get_all_related_tables")
    .then(function(response) {
-   $scope.degrees = angular.fromJson(response.data.type_of_degree); 
+    $scope.degrees = angular.fromJson(response.data.type_of_degree); 
     $scope.classifications = angular.fromJson(response.data.classifications);
+    $scope.countries = angular.fromJson(response.data.countries);
    },function errorCallback(response) {
    return response.status;
    });
@@ -24,7 +23,7 @@
    $http.get("http://"+datagrab.dirlocation+"recruit_api/get_qualifications?id="+id)
    .then(function(response) {
     $scope.edu_qualifications = angular.fromJson(response.data.qualifications);
-    $scope.pro_qualifications = angular.fromJson(response.data.professionals);  
+    $scope.pro_qualifications = angular.fromJson(response.data.professionals); 
    },function errorCallback(response) {
    return response.status;
    });

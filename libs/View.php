@@ -76,9 +76,10 @@ public $data = array();
             ////ELSE IT IS A VISITOR PAGE
             else{
              /////ASSIGN JAVASCRIPT   
+             
             $js=null;    
-            if(!empty($this->js)){
-            //$js=$this->js;    
+            if(!empty($this->js)){   
+            $js=$this->js;    
             }
           
 			require 'views/snipets/headerref.php';

@@ -299,7 +299,7 @@ class Recruit extends Controller {
 			'startdate' => $_POST['startdate'],
 			'enddate' => $_POST['enddate'],
 			'institution' => $_POST['institution'],
-			'qualification' => $_POST['qualification'],
+			'course_of_study'=>$_POST['course_of_study'],
             'type' => $_POST['type'],
             'classification' => $_POST['classification'],
 			'city' => $_POST['city'],

@@ -10,16 +10,29 @@
     $scope.pageSize = 50;
     $('.loader').show();
 
-    //////////FETCH ALL RELATED TABLES
-      
+    //////////FETCH ALL RELATED TABLES  
    $http.get("http://"+datagrab.dirlocation+"hr_api/get_all_applicants")
    .then(function(response) {
-       
    $scope.applicants = response.data; 
-
    },function errorCallback(response) {
    return response.status;
    });
+
+
+   $scope.get_applicants_other_details = function(id){
+
+    //////////FETCH APPLICANTS OTHER DETAILS 
+   $http.get("http://"+datagrab.dirlocation+"hr_api/get_applicants_other_details?id="+id)
+   .then(function(response) {
+   $scope.applicants_educational_details = angular.fromJson(response.data.educational_qualifications);
+   $scope.applicants_professional_details = angular.fromJson(response.data.professional_qualifications); 
+   $scope.attachments = angular.fromJson(response.data.attachments); 
+   $scope.work_experience  = angular.fromJson(response.data.work_experience);
+   },function errorCallback(response) {
+   return response.status;
+   });
+
+   }
 
       
 

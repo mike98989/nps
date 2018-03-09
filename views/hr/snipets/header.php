@@ -24,7 +24,7 @@
                 </li>
                 
                 <li>
-                    <a href="table.html">
+                    <a href="<?php echo URL;?>hr/applicants">
                         <i class="ti-user"></i>
                         <p>Applicants</p>
                     </a>

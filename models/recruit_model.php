@@ -265,10 +265,12 @@ class recruit_Model extends Model {
     public function get_all_related_tables($json){
         $type_of_degree = $this->db->query("SELECT * FROM attachments_list WHERE status='1'")or die(mysql_error());
         $classification = $this->db->query("SELECT * FROM result_classifications WHERE status='1'")or die(mysql_error());
+        
         //print_r($songs);
         if($json==true){
         $return['type_of_degree'] = $this->returnjson($type_of_degree->rows);
-        $return['classifications'] = $this->returnjson($classification->rows);    
+        $return['classifications'] = $this->returnjson($classification->rows);
+        $return['countries'] = $this->returnjson($this->load_countries());  
         print_r(json_encode($return));
         exit;
         }   

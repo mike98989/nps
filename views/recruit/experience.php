@@ -1,15 +1,15 @@
-<div class="container mb-3">
+<section class="u-bg-overlay g-bg-pos-top-center g-bg-img-hero g-bg-black-opacity-0_3--after g-py-100" style="background:#ccc;padding-top:10px !important; padding-bottom:10px !important" ng-controller="recruitRegistrationController">
+<div class="container u-bg-overlay__inner" style="background:#fff;padding:30px 0;border-top:4px solid #90b205">
   <header class="text-center g-width-60x--md mx-auto g-mb-30">
     <div class="u-heading-v2-3--bottom g-brd-primary g-mb-20">
-      <h2 class="h3 u-heading-v2__title g-color-gray-dark-v2 text-uppercase g-font-weight-600" style="">Work Experience</h2>
+      <h2 class="h3 u-heading-v2__title g-color-gray-dark-v2 g-font-weight-600" style="">Work Experience</h2>
     </div>
   </header>
-  <div class="col-md-12" style="margin:0 auto;float:none">
-	</div>
-	<div class="row mb-3">
-		<div class="col-md-6 col-sm-12">
+
+	<div class="row" style="padding:2px 10px">
+		<div class="col-lg-5 col-sm-12">
 			<fieldset>
-			  <legend>Add Work Experience:</legend>
+			  <h5 style="font-weight:bold;text-align:center">Add Work Experience:</h5>
 			  <form action="" method="post">
       		<input type="hidden" name="form" value="experience">
 				  <div class="row mb-3">
@@ -36,15 +36,15 @@
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12 text-center">
-				  		<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="submit">Add</button>
+				  		<button class="btn btn-sm u-btn-primary rounded" type="submit">Save</button>
 				  	</div>
 				  </div>
 			  </form>
 			</fieldset>
 		</div>
 
-		<div class="col-md-6 col-sm-12">
-			<h3>Work experience</h3>
+		<div class="col-md-7 col-sm-12">
+			<h5 class="text-center" style="font-weight: bold">Work experience</h5>
 			<table class="table">
 			  <thead>
 			    <tr>
@@ -75,19 +75,21 @@
 			</table>			
 		</div>
 	</div>
+	<hr>
 	<div class="row mb-3">
 		<div class="col-sm-6 text-center">
 			<form action="" method="post">
 				<input type="hidden" name="form" value="back">
-				<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="submit">Back</button>
+				<button class="btn btn-md btn-success rounded" type="submit">Back</button>
 			</form>
 		</div>
 		<div class="col-sm-6 text-center">
 			<form action="" method="post">
 				<input type="hidden" name="form" value="next">
-				<button class="btn btn-md btn-block u-btn-primary rounded text-uppercase g-py-13" type="submit">Save and proceed</button>
+				<button class="btn btn-md u-btn-primary rounded " type="submit">Save and Proceed</button>
 			</form>
 		</div>
 	</div>
   
 </div>
+</section>

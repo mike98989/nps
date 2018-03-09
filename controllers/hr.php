@@ -29,6 +29,9 @@ class Hr extends Controller {
     function applicants(){
       
     $message='';
+    if(isset($_GET['id'])){
+    $this->view->data['details'] = $this->model->get_applicant_details($json=false);    
+    }
     $this->view->js = array('public/js/controllers/hrApplicantsController.js');    
     //$this-view->data['dashboard'] = $this->model->count_records();    
     $this->view->render('hr/applicants', $noinclude=false, $message);
