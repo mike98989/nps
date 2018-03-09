@@ -4,6 +4,7 @@
     <div class="u-heading-v2-3--bottom g-brd-primary g-mb-20">
       <h2 class="h3 u-heading-v2__title g-color-gray-dark-v2 g-font-weight-600" style="">Attachments</h2>
     </div>
+      <h5>You need to upload a passport photograph, SSCE and First School Leaving Certificate to complete the registration process</h5>
   </header>
   <div class="col-md-12" style="margin:0 auto;float:none">
 	</div>
@@ -81,12 +82,14 @@
 				<button class="btn btn-md btn-success rounded" type="submit">Back</button>
 			</form>
 		</div>
+		<?php if ($files_attached) { ?>
 		<div class="col-sm-6 text-center">
 			<form action="" method="post">
 				<input type="hidden" name="form" value="next">
 				<button class="btn btn-md u-btn-primary rounded" type="submit">Finish</button>
 			</form>
 		</div>
+		<?php } ?>
 	</div>
   
 </div>
@@ -104,7 +107,6 @@
 		} else {
 			titleInput.value =  ev.target.value;
 			titleBlock.style.display = 'none';
-
 		}
 	}
 </script>

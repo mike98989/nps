@@ -187,7 +187,13 @@ class Recruit extends Controller {
 
 		$id = (int) Session::get('id');
 		$size_limit = constant("UPLOAD_SIZE");
-		$acceptable_types = constant("UPLOAD_TYPES");
+		$acceptable_types = array(
+      'application/pdf',
+      'application/msword', // .doc
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+      'image/jpeg',
+      'image/jpg',
+      'image/png');
 		$file_store = constant("UPLOAD_DIR");
 
 		if ($_POST['form'] == 'next') {
@@ -244,8 +250,29 @@ class Recruit extends Controller {
 			}
 		}
 
-		$this->view->data['attachments'] = $this->model->load_attachments($id);
 		$this->view->data['attachments_list'] = $this->model->load_attachments_list();
+    $this->view->data['attachments'] = $this->model->load_attachments($id);
+    $count = count($this->view->data['attachments']);
+    $passport_uploaded = false;
+    $ssce_uploaded = false;
+    $fslc_uploaded = false;
+
+    for ($i=0; $i < $count; $i++) { 
+      $title = $this->view->data['attachments'][$i]['title'];
+      if ($title == 'Passport Photograph') {
+        $passport_uploaded = true;
+      }
+
+      if ($title == 'First School Leaving Certificate') {
+        $fslc_uploaded = true;
+      }
+
+      if (strpos($title, 'SSCE') !== false) {
+        $ssce_uploaded = true;
+      }
+    }
+
+    $this->view->data['files_attached'] = $count >= 3 && $passport_uploaded && $ssce_uploaded && $fslc_uploaded;
 		$message='';
     $this->view->render('recruit/attachments', $noinclude=false, $message);
 	}
