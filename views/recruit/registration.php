@@ -221,8 +221,12 @@
 	
 	function stateChanged(which, ev) {
 		const options = lgas
-			.filter(lga => lga.state === ev.target.value)
-			.map(lga => "<option value='"+ lga.name +"'>"+ lga.name +"</option>");
+			.filter(function(lga) {
+				return lga.state === ev.target.value;
+			})
+			.map(function (lga) {
+				return "<option value='"+ lga.name +"'>"+ lga.name +"</option>";		
+			});
 		
 		document.getElementById(which + 'Lga').innerHTML = options;
 	}
