@@ -174,7 +174,7 @@
 	<div class="row">
 		<div class="col-lg-11" style="margin:0 auto;float:none">
 			<h5 class="text-center">Educational qualifications <button type="button" ng-click="add_educational_qualification()" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus"></i> Add</button></h5>
-			<table class="table" style="font-size:13px" ng-init="get_qualifications(<?php echo (int) Session::get('id');?>)">
+			<table class="table table-striped table-bordered" style="font-size:13px" ng-init="get_qualifications(<?php echo (int) Session::get('id');?>)" ng-cloak>
 			  <thead>
 			    <tr>
 			    	<th>#</th>
@@ -207,7 +207,7 @@
 	<div class="row">
 		<div class="col-lg-11" style="margin:0 auto;float:none">
 			<h5 class="text-center">Professional qualifications/Certifications <button type="button" ng-click="add_professional_qualification()" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus"></i> Add</button></h5>
-			<table class="table">
+			<table class="table table-striped table-bordered" ng-cloak>
 			  <thead>
 			    <tr>
 			    <th>#</th>

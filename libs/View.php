@@ -4,7 +4,7 @@ class View {
 public $data = array();
 	function __construct() {
         
-         error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
+        error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING );
         Session::init();
 		//echo 'this is the view';
         $this->view = new \stdClass();

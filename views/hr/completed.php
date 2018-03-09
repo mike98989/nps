@@ -11,14 +11,14 @@
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-striped">
-                                    <thead>
+                                    <thead style="text-align: center;font-size:11px">
                                         <th>#</th>
                                     	<th>Full Name</th>
                                         <th>NIN</th>
                                     	<th>Edu Qualification</th>
                                     	<th>Certifications</th>
                                     	<th>Work Experience</th>
-                                        <th>Documents</th>
+                                        <th style="width:500px">Documents</th>
                                        
                                     </thead>
                                     <tbody>
@@ -26,13 +26,12 @@
                                         	<td>{{$index +1}}</td>
                                         	<td style="font-weight:bold"><a href="http://{{dirlocation}}hr/applicants?id={{applicant.id}}" style="color:inherit">{{applicant.fname}} {{applicant.sname}} {{applicant.mname}}</a></td>
                                             <td>{{applicant.nin}}</td> 
-                                        	<td>{{applicants_educational_details.length}}</td>
-                                        	<td>{{applicants_professional_details.length}}</td>
-                                        	<td>{{work_experience.length}}</td>
-                                            <td></td>
+                                        	<td style="text-align: center">{{applicants_educational_details.length}}</td>
+                                        	<td style="text-align: center">{{applicants_professional_details.length}}</td>
+                                        	<td style="text-align: center">{{work_experience.length}}</td>
+                                            <td style="width:500px"><div><span class="label label-success" ng-repeat="attach in attachments" ng-init="{{ext=attach.path.split('.').pop()}}" style="float:left;margin:3px"><img ng-src="http://{{dirlocation}}public/images/{{ext}}_icon.png" style="width:25px;margin-right:3px">{{attach.title}}</span></div></td>
                                             
                                         </tr>
-                                       
                                     </tbody>
                                 </table>
 

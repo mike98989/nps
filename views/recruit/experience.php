@@ -45,7 +45,7 @@
 
 		<div class="col-md-7 col-sm-12">
 			<h5 class="text-center" style="font-weight: bold">Work experience</h5>
-			<table class="table">
+			<table class="table table-striped table-bordered">
 			  <thead>
 			    <tr>
 			      <th scope="col">Start date</th>
@@ -66,7 +66,7 @@
 			      <form action="" class="form-inline" method="post">
 			      		<input type="hidden" name="form" value="delete_experience">
 			      		<input type="hidden" name="id" value="<?php echo $experience[$i]['id']; ?>">
-			      		<button type="submit" class="btn btn-link" style="font-size: 1.5rem;cursor: pointer;">&times;</button>
+			      		<button type="submit" class="btn btn-link" style="padding:0;font-size: 1.5rem;cursor: pointer;">&times;</button>
 			      	</form>			      	
 			      </td>
 			    </tr>

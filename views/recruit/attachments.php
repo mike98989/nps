@@ -4,6 +4,9 @@
     <div class="u-heading-v2-3--bottom g-brd-primary g-mb-20">
       <h2 class="h3 u-heading-v2__title g-color-gray-dark-v2 g-font-weight-600" style="">Attachments</h2>
     </div>
+    <div class="alert alert-success">
+      <h5>You need to upload at least a passport photograph, SSCE and First School Leaving Certificate to complete the registration process</h5>
+  </div>
   </header>
   <div class="col-md-12" style="margin:0 auto;float:none">
 	</div>
@@ -40,31 +43,42 @@
 				  </div>
 				  <div class="row mb-3">
 				  	<div class="col-md-12 text-center">
-				  		<button class="btn btn-sm u-btn-primary rounded" type="submit">Add</button>
+				  		<button class="btn btn-sm u-btn-primary rounded" type="submit">Add Doc.</button>
 				  	</div>
 				  </div>
+
+				<div class="alert alert-success">
+			      <ul style="padding-left:5px;line-height:25px">
+			      	<li>Upload file must either be in jpeg, pdf or MS word(docx) format</li>
+			      	<li>Upload file must not exceed 2MB</li>
+			      </ul>
+			  </div>
 			  </form>
 			</fieldset>
 		</div>
 
 		<div class="col-md-7 col-sm-12">
 			<h5 class="text-center" style="font-weight: bold">Attachments</h5>
-			<table class="table">
+			<table class="table table-striped table-bordered">
 			  <thead>
 			    <tr>
+			    	<th>#</th>
+			    	<th>Type</th>
 			      <th scope="col">Title</th>
 			      <th scope="col">Remove</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  	<?php for ($i=0; $i < count($attachments); $i++) {  ?>
-			    <tr>
-			      <td><?php echo $attachments[$i]['title']; ?></td>
+			    <tr style="padding:5px">
+			    <td><?php echo $i+1;?></td>
+			    <td><?php $ext=strtolower(end(explode('.',$attachments[$i]['path'])));?><img src="<?php echo URL.'public/images/'.$ext.'_icon.png';?>" style="width:25px";?></td>	
+			      <td><?php echo $attachments[$i]['title'];?></td>
 			      <td class="text-center" style="font-size: 1.5rem;cursor: pointer;">
 			      <form action="" class="form-inline" method="post">
 			      		<input type="hidden" name="form" value="delete_attachment">
 			      		<input type="hidden" name="id" value="<?php echo $attachments[$i]['id']; ?>">
-			      		<button type="submit" class="btn btn-link" style="font-size: 1.5rem;cursor: pointer;">&times;</button>
+			      		<button type="submit" class="btn btn-link" style="padding:0;font-size: 1.5rem;cursor: pointer;">&times;</button>
 			      	</form>			      	
 			      </td>
 			    </tr>
@@ -81,12 +95,14 @@
 				<button class="btn btn-md btn-success rounded" type="submit">Back</button>
 			</form>
 		</div>
+		<?php if ($files_attached) { ?>
 		<div class="col-sm-6 text-center">
 			<form action="" method="post">
 				<input type="hidden" name="form" value="next">
 				<button class="btn btn-md u-btn-primary rounded" type="submit">Finish</button>
 			</form>
 		</div>
+		<?php } ?>
 	</div>
   
 </div>
@@ -104,7 +120,6 @@
 		} else {
 			titleInput.value =  ev.target.value;
 			titleBlock.style.display = 'none';
-
 		}
 	}
 </script>
