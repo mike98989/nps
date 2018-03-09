@@ -28,6 +28,16 @@ class hr_Model extends Model {
         }
     } 
     
+    function get_all_completed($json){
+    $completed_applicants = $this->db->query("SELECT *  from personal_details P INNER JOIN recruit R ON P.id=R.id WHERE P.completed='1'")or die(mysql_error());
+    if($json==true){
+        $return = $this->returnjson($completed_applicants->rows);
+        print_r($return);
+        exit;
+        }else{
+        return $completed_applicants->rows;
+        }
+    } 
 
     function get_applicant_details($json){
     $id=$this->db->escape($_GET['id']);

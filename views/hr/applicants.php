@@ -1,6 +1,6 @@
         
         <div class="content" ng-controller="hrApplicantsController" ng-init="get_applicants_other_details(<?php echo $details['id'];?>)">
-            <div class="container-fluid">
+            <div class="container-fluid" ng-init="get_applicants('applicants')">
                 <div class="row">
                     <?php if(!isset($_GET['id'])){?>
                     <div class="col-md-12">

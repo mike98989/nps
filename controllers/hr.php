@@ -37,6 +37,17 @@ class Hr extends Controller {
     $this->view->render('hr/applicants', $noinclude=false, $message);
         
     }
+
+
+    function completed(){
+      
+    $message='';
+    
+    $this->view->js = array('public/js/controllers/hrApplicantsController.js');    
+    //$this-view->data['dashboard'] = $this->model->count_records();    
+    $this->view->render('hr/completed', $noinclude=false, $message);
+        
+    }
     
     
     

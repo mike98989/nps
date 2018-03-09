@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="typography.html">
+                    <a href="<?php echo URL;?>hr/completed">
                         <i class="ti-files"></i>
                         <p>Completed Forms</p>
                     </a>
