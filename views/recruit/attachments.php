@@ -99,7 +99,7 @@
 		<div class="col-sm-6 text-center">
 			<form action="" method="post">
 				<input type="hidden" name="form" value="next">
-				<button class="btn btn-md u-btn-primary rounded" type="submit">Finish</button>
+				<button class="btn btn-md u-btn-primary rounded" type="submit">Finish (4/4)</button>
 			</form>
 		</div>
 		<?php } ?>

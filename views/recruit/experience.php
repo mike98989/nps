@@ -86,7 +86,7 @@
 		<div class="col-sm-6 text-center">
 			<form action="" method="post">
 				<input type="hidden" name="form" value="next">
-				<button class="btn btn-md u-btn-primary rounded " type="submit">Save and Proceed</button>
+				<button class="btn btn-md u-btn-primary rounded " type="submit">Save and Proceed (3/4)</button>
 			</form>
 		</div>
 	</div>
