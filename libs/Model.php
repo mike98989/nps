@@ -3,7 +3,9 @@
 class Model {
 
 	function __construct() {
-		$this->db = new Database();
+    $this->db = new Database();
+    $this->memcache = new Memcached();
+    $this->cacheAvailable = $this->memcache->addServer(constant("MEMCACHED_HOST"), constant("MEMCACHED_PORT"));
 	}
 	
 	function returnjson($result){
