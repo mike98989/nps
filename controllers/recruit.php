@@ -20,6 +20,14 @@ class Recruit extends Controller {
     unset($_SESSION['loggedIn']);
 	}
 
+  function logout() {
+    if (Session::get('loggedIn')) {
+      Session::destroy();
+    }
+
+    $this->redirect("{$this->rootUrl}");
+  }
+
 	function index() {
 	$message='';
 	//// IF THERE'S AN ALREADY INITIATED SESSION

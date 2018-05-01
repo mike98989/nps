@@ -168,6 +168,8 @@
 				<input type="hidden" name="form" value="next">
 				<button class="btn btn-md btn-success rounded" type="button" ng-click="preview_details(<?php echo (int) Session::get('id');?>)">Preview</button>
 				<button class="btn btn-md btn-primary rounded" type="submit">Finish</button>
+
+				
 			</form>
 			
 		</div>

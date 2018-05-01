@@ -135,7 +135,7 @@
 			<form action="" method="post">
 				<input type="hidden" name="application_stage" value="<?php if($_SESSION['user_details']['application_stage']<5){echo '5';}else{echo $_SESSION['user_details']['application_stage'];}?>">
 				<input type="hidden" name="form" value="next">
-				<button class="btn btn-md u-btn-primary rounded " type="submit">Save and Proceed</button>
+				<button class="btn btn-md u-btn-primary rounded " type="submit">Save and Proceed (3/4)</button>
 			</form>
 		</div>
 	</div>
