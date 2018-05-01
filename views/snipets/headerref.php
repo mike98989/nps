@@ -35,7 +35,27 @@
 
   <!-- CSS Customization -->
   <link rel="stylesheet" href="<?php echo URL;?>public/css/custom.css">
-<style></style></head>
+
+  <!-- jQuery 2.2.3 -->
+<script src="<?php echo URL; ?>public/plugins/jQuery/jquery-2.2.3.min.js"></script>
+  <link rel="stylesheet" href="<?php echo URL; ?>public/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css">
+  <script src="<?php echo URL; ?>public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+
+  $( function() {
+    
+    $(".datepicker" ).datepicker();
+   
+  });
+  </script>
+
+  <style>
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+    display: none !important;
+}
+</style>
+</head>
 
 <body ng-app="nps">
   <main>

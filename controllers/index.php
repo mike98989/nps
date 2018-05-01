@@ -18,11 +18,11 @@ class Index extends Controller {
 	}
 
 	function index() {
+    //die(header('location: ./recruit'));    
 	$message='';
-
     $this->view->data["slider"] = $this->model->get_slider_image();
-    $this->view->data["all_news"] = $this->model->get_all_news(); 
-    $this->view->data["content"] = $this->model->get_home_content();     
+    $this->view->data["all_news"] = $this->model->get_all_news($json=false); 
+    $this->view->data["content"] = $this->model->get_home_content($json=false);     
     $this->view->render('index/index', $noinclude=false, $message);
 	}
     

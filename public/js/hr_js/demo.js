@@ -16,7 +16,7 @@ demo = {
         });
     },
 
-    initChartist: function(accepted, denied, unverified){
+    initChartist: function(accepted, denied, unverified, assistant_cadre, inspectorate_cadre, superintendent_cadre){
         
         var dataSales = {
           labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
@@ -110,6 +110,18 @@ demo = {
         labels: [accepted+'%',unverified+'%',denied+'%'],
         series: [accepted, unverified, denied]    
         });
+
+
+        Chartist.Pie('#chartPreferences2', dataPreferences, optionsPreferences);
+
+        Chartist.Pie('#chartPreferences2', {
+          //labels: [accepted+'%',denied+'%',unverified+'%'],
+          //series: [accepted, denied, unverified]
+        labels: [assistant_cadre+'%',inspectorate_cadre+'%',superintendent_cadre+'%'],
+        series: [assistant_cadre, inspectorate_cadre, superintendent_cadre]    
+        });
+
+        
     },
 
     initGoogleMaps: function(){

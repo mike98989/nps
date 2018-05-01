@@ -13,8 +13,6 @@
     <!--  Notifications Plugin    -->
     <script src="<?php echo URL;?>public/js/hr_js/bootstrap-notify.js"></script>
 
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 	<script src="<?php echo URL;?>public/js/hr_js/paper-dashboard.js"></script>
@@ -22,22 +20,7 @@
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="<?php echo URL;?>public/js/hr_js/demo.js"></script>
 
-	<script type="text/javascript">
-    	$(document).ready(function(){
 
-        	
-
-        	$.notify({
-            	icon: 'ti-gift',
-            	message: "Welcome to <b>NPS - Recruitment Dashboard</b> - a beautiful User Interface for your easy process flow."
-
-            },{
-                type: 'success',
-                timer: 4000
-            });
-
-    	});
-	</script>
 
 
 <!----LIBRARIES-->
