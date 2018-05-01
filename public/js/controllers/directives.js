@@ -6,20 +6,22 @@
     var i = webUrl.indexOf('nps_biometric');
     webUrl.splice(i, 1);
 
-
-    //var dirlocation = 'prisons.gov.ng/';
-    var dirlocation = window.location.hostname+'/nps/';
+    //var dirlocation = window.location.hostname+'/nps/';
+    var dirlocation = window.location.hostname+'/';
+    //var completeUrlLocation = 'https://'+window.location.hostname+'/';
+    var completeUrlLocation = 'http://'+window.location.hostname+'/nps/';
     //var current_user = $('#current_user_value').val();
-    return {dirlocation: dirlocation, urlSplit:webUrl}
+    return {dirlocation: dirlocation, urlSplit:webUrl, completeUrlLocation:completeUrlLocation}
 
     }])
 
 
       ///// SERVICE FOR SESSION INFO GATHERING/////
     module.factory('user_session', ['$http','infogathering', function($http, datagrab) {
-
     //////////FETCH CURRENT USER
-    var user_session = $http.get("http://"+datagrab.dirlocation+"api/get_session")
+    //var user_session = $http.get("http://"+datagrab.dirlocation+"api/get_session")
+    //var user_session = $http.get("https://"+datagrab.dirlocation+"api/get_session")
+    var user_session = $http.get(datagrab.completeUrlLocation+"api/get_session")
     .then(function(response) {
     var user_session = response.data;
     //var user_counter = angular.fromJson(response.data.counter);   

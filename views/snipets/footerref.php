@@ -24,6 +24,9 @@
   <!-- JS Customization -->
   <script src="<?php echo URL;?>public/js/custom.js"></script>
 
+  <!-- bootstrap datepicker -->
+<script src="<?php echo URL; ?>public/plugins/datepicker/bootstrap-datepicker.js"></script>
+
   <!-- JS Plugins Init. -->
   <script>
     $(document).on('ready', function () {

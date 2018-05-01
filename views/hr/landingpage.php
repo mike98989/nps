@@ -13,7 +13,7 @@
                                     </div>
                                     <div class="col-xs-7">
                                         <div class="numbers">
-                                            <p>Applicants</p>
+                                            <p>All Applicants</p>
                                             {{counter[0].applicants}}
                                         </div>
                                     </div>
@@ -28,6 +28,7 @@
                         </div>
                     </div>
                     </a>
+                    <a href="<?php echo URL;?>hr/completed">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card">
                             <div class="content">
@@ -53,6 +54,8 @@
                             </div>
                         </div>
                     </div>
+                </a>
+                <a href="<?php echo URL;?>hr/eligible">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card">
                             <div class="content">
@@ -64,8 +67,8 @@
                                     </div>
                                     <div class="col-xs-7">
                                         <div class="numbers">
-                                            <p>Verified Forms</p>
-                                            {{counter[0].verified}}
+                                            <p>Eligible Applicants</p>
+                                            {{counter[0].eligible}}
                                         </div>
                                     </div>
                                 </div>
@@ -78,6 +81,8 @@
                             </div>
                         </div>
                     </div>
+                </a>
+                <a href="<?php echo URL;?>hr/accepted">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card">
                             <div class="content">
@@ -89,7 +94,7 @@
                                     </div>
                                     <div class="col-xs-7">
                                         <div class="numbers">
-                                            <p>Accepted</p>
+                                            <p>Accepted Applicants</p>
                                             {{counter[0].accepted}}
                                         </div>
                                     </div>
@@ -103,37 +108,14 @@
                             </div>
                         </div>
                     </div>
+                </a>
                 </div>
-                <div class="row" style="display:none">
-
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Users Behavior</h4>
-                                <p class="category">24 Hours performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Click
-                                        <i class="fa fa-circle text-warning"></i> Click Second Time
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Updated 3 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+     
                 <div class="row" style="display:nne">
                     <div class="col-md-6">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Recruitment Statistics</h4>
+                                <h4 class="title">Total Recruitment Statistics</h4>
                                 <p class="category">Total Recruitment Performance</p>
                             </div>
                             <div class="content">
@@ -141,9 +123,12 @@
 
                                 <div class="footer">
                                     <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Accepted
-                                        <i class="fa fa-circle text-danger"></i> Denied
-                                        <i class="fa fa-circle text-warning"></i> Unverified
+                                        <a href="<?php echo URL;?>hr/accepted" style="color:inherit">
+                                        <i class="fa fa-circle text-info"></i> Accepted </a>
+                                        <a href="<?php echo URL;?>hr/denied" style="color:inherit">
+                                        <i class="fa fa-circle text-danger"></i> Denied</a>
+                                        <a href="<?php echo URL;?>hr/unverified" style="color:inherit">
+                                        <i class="fa fa-circle text-warning"></i> Unverified</a>
                                     </div>
                                     <hr>
                                     <div class="stats">
@@ -153,23 +138,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card ">
+                   <div class="col-md-6">
+                        <div class="card">
                             <div class="header">
-                                <h4 class="title">2015 Sales</h4>
-                                <p class="category">All products including Taxes</p>
+                                <h4 class="title">Positions Statistics</h4>
+                                <p class="category">Positions applied for</p>
                             </div>
                             <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
+                                <div id="chartPreferences2" class="ct-chart ct-perfect-fourth"></div>
 
                                 <div class="footer">
                                     <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Tesla Model S
-                                        <i class="fa fa-circle text-warning"></i> BMW 5 Series
+                                        <a href="<?php echo URL;?>hr/sorting?category=3&status=completed" style="color:inherit">
+                                        <i class="fa fa-circle text-info"></i> Assistant Cadre</a>
+                                        <a href="<?php echo URL;?>hr/sorting?category=1&status=completed" style="color:inherit">
+                                        <i class="fa fa-circle text-danger"></i> Superintendent Cadre</a>
+                                        <a href="<?php echo URL;?>hr/sorting?category=2&status=completed" style="color:inherit">
+                                        <i class="fa fa-circle text-warning"></i> Inspectorate Cadre</a>
                                     </div>
-                                    <hr>
+                                    <hr> 
                                     <div class="stats">
-                                        <i class="ti-check"></i> Data information certified
+                                        <i class="ti-timer"></i>Record as at <?php echo date('d/m/Y H:i:s A');?>
                                     </div>
                                 </div>
                             </div>

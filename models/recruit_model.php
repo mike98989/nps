@@ -19,7 +19,7 @@ class recruit_Model extends Model {
 	public function email_exists($email) {
 		$result = $this->db->query("SELECT COUNT(*) AS result FROM {$this->table} WHERE email='{$email}' LIMIT 1")or die(mysql_error());
     
-    return $result->rows[0]['result'] == '1';
+    return $result->rows[0]['result'];
 	}
 
 	public function insert_user($fname, $sname, $email, $pwd) {
@@ -102,7 +102,6 @@ class recruit_Model extends Model {
   	}
   }
 
-
   public function load_lgas() {
   	$from_cache = $this->memcache->get('lgas');
   	if ($from_cache) {
@@ -125,6 +124,7 @@ class recruit_Model extends Model {
 			$details['recruit_id'] = $id;
 			return $this->insert_personal_details($details);
 		}
+
 	}
 
 	function insert_personal_details($details) {
@@ -402,14 +402,22 @@ class recruit_Model extends Model {
 	}
 
 	function set_complete($id) {
-    $query = "UPDATE {$this->personal_details_table} SET completed=1 WHERE recruit_id={$id}";
+	$user_details= $this->db->query("SELECT * FROM personal_details INNER JOIN recruit INNER JOIN lgas INNER JOIN positions INNER JOIN sub_positions ON personal_details.recruit_id=recruit.id AND personal_details.permState=lgas.state AND recruit.position_category=positions.id AND recruit.position_applied_for=sub_positions.sub_position_id WHERE personal_details.recruit_id='".$id."'")or die(mysql_error());
+	//echo $user_details->row['sub_position_id'];
+	//print_r($user_details->row);exit;
+	$rand=rand(10000000,100000000);
+
+	$reference = "NPS/".$user_details->row['state_short_code']."/".$user_details->row['short_code'].$user_details->row['sub_position_id']."/".$rand;
+	$_SESSION['user_details']['reference']=$reference;	
+    $query = "UPDATE recruit SET completed=1, reference ='".$reference."' WHERE id={$id}";
 		$res = $this->db->query($query) or die(mysql_error());
 		$this->memcache->set("reg_{$id}", $res->rows[0]);
 		return $res->rows[0];
+
 	}
 
     public function get_all_related_tables($json){
-        $type_of_degree = $this->db->query("SELECT * FROM attachments_list WHERE status='1'")or die(mysql_error());
+        $type_of_degree = $this->db->query("SELECT * FROM attachments_list WHERE status='1' ORDER BY degree ASC ")or die(mysql_error());
         $classification = $this->db->query("SELECT * FROM result_classifications WHERE status='1'")or die(mysql_error());
         
         //print_r($songs);
@@ -420,6 +428,89 @@ class recruit_Model extends Model {
         print_r(json_encode($return));
         exit;
         }   
+    }
+
+    function get_positions(){
+    $positions = $this->db->query("SELECT * FROM positions WHERE status='1'")or die(mysql_error());	
+    $sub_positions = $this->db->query("SELECT * FROM sub_positions WHERE status='1'")or die(mysql_error());	
+    $user_id=$this->db->escape($_GET['id']);
+    $user_details = $this->db->query("SELECT * FROM recruit WHERE id='".$user_id."'")or die(mysql_error());	
+    $return['positions'] = $this->returnjson($positions->rows);
+    $return['sub_positions'] = $this->returnjson($sub_positions->rows);
+    $return['user_details'] = $this->returnjson($user_details->row);
+   	print_r(json_encode($return));
+   	exit;
+    }
+
+
+      function get_applicant_details($json){
+    $query='';        
+    $id=$this->db->escape($_GET['id']);
+    $details = $this->db->query("SELECT P.*,R.*,S.sub_title,S.position_id,S.hint, P2.title  from personal_details P INNER JOIN recruit R ON P.recruit_id=R.id INNER JOIN sub_positions S ON R.position_applied_for=S.sub_position_id INNER JOIN positions P2 ON S.position_id=P2.id WHERE P.recruit_id='".$id."' ".$query)or die(mysql_error());
+    if($json==true){
+    $return = $this->returnjson($details->row);
+    print_r($return);
+    exit;    
+    }else{
+    return $details->row;   
+    }
+    }
+
+    function get_applicant_photo($json){
+    $id=$this->db->escape($_GET['id']);
+    $photo = $this->db->query("SELECT * FROM attachments WHERE title='Passport Photograph' AND recruit_id='".$id."'")or die(mysql_error());
+    if($json==true){
+    $return = $this->returnjson($photo->row);
+    print_r($return);
+    exit;    
+    }else{
+    return $photo->row;   
+    }	
+
+    }
+
+    function load_chosen_position($position_id){
+    $positions = $this->db->query("SELECT * FROM sub_positions INNER JOIN positions ON sub_positions.position_id=positions.id WHERE sub_positions.sub_position_id='".$position_id."'")or die(mysql_error());
+    return $positions->row;
+    }
+
+    function save_position_applied(){
+     if(isset($_POST['position_applied_for'])){
+         
+    $exclude = array('recruit_id','application_stage');
+    foreach(array_keys($_POST) as $key ) {
+    if(!in_array($key, $exclude) ) {
+    $keys[] = $fields[] = "`$key`";
+    $data[] = $values[] = "'" .$this->db->escape($_POST[$key])."'";
+    }
+    }
+    $fields = implode(",", $fields);
+    $values = implode(",", $values);
+
+    $sets = array();
+     $combine = array_combine($keys, $data);
+
+     foreach($combine as $column => $value){
+      $sets[] = "" .$column. " = ".$value." ";
+     }
+     $whereSQL = "WHERE id='".$this->db->escape($_POST['recruit_id'])."'";
+    $message="true";
+     $sql ="UPDATE recruit" . " SET " .implode("," ,$sets) . $whereSQL;
+     if($this->db->query($sql)) {
+     $msg = $message;
+     }else {
+     $msg = mysql_error();
+     }
+     return $msg;
+    
+
+ 	}
+
+    }
+
+    function update_stage($id){
+    $update = $this->db->query("UPDATE recruit SET application_stage='".$_POST['application_stage']."' WHERE id='".$id."'")or die(mysql_error());
+    $_SESSION['user_details']['application_stage']=$_POST['application_stage'];
     }
     
     

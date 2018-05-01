@@ -1,14 +1,14 @@
 
 
 <div class="wrapper">
-    <div class="sidebar" data-background-color="white" data-active-color="danger">
+    <div class="sidebar" data-background-color="white" data-active-color="white">
 
     <!--
 		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
 		Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
 	-->
 
-    	<div class="sidebar-wrapper" style="background:#a8ce6c">
+    	<div class="sidebar-wrapper" style="background:#95C050" data-background-color="white | black">
             <div class="logo">
                 <a href="#" class="simple-text" style="color:#fff;">
                     <img src="<?php echo URL;?>public/images/badge.png" style="height:50px"> NPS - HR
@@ -16,51 +16,73 @@
             </div>
 
             <ul class="nav">
-                <li class="active">
+                <li <?php if($url[2]==''){echo "class='active'";}?>>
                     <a href="<?php echo URL;?>hr">
                         <i class="ti-panel"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                
-                <li>
+                <?php if($_SESSION['details'][0]['account_type']=='1'){?>
+                <li <?php if($url[2]=='applicants'){echo "class='active'";}?>>
                     <a href="<?php echo URL;?>hr/applicants">
                         <i class="ti-user"></i>
                         <p>Applicants</p>
                     </a>
-                </li>
-                <li>
+                </li> 
+
+                <li <?php if($url[2]=='completed'){echo "class='active'";}?>>
                     <a href="<?php echo URL;?>hr/completed">
                         <i class="ti-files"></i>
                         <p>Completed Forms</p>
                     </a>
                 </li>
-                <li>
-                    <a href="icons.html">
+                <?php }?>
+                <?php if($_SESSION['details'][0]['account_type']=='2'){?>
+                <li <?php if($url[2]=='eligible'){echo "class='active'";}?>>
+                    <a href="<?php echo URL;?>hr/eligible">
                         <i class="ti-check"></i>
-                        <p>Verified</p>
+                        <p>Eligible</p>
                     </a>
                 </li>
-                
-                <li>
-                    <a href="icons.html">
+                <?php }?>
+                <?php if($_SESSION['details'][0]['account_type']=='3'){?>
+                <li <?php if($url[2]=='accepted'){echo "class='active'";}?>>
+                    <a href="<?php echo URL;?>hr/accepted">
                         <i class="ti-thumb-up"></i>
-                        <p>Accepted</p>
+                        <p>Processed Applicants</p>
                     </a>
                 </li>
-                <li>
-                    <a href="icons.html">
+                <?php }?>
+                <li <?php if($url[2]=='denied'){echo "class='active'";}?> style="display:none">
+                    <a href="<?php echo URL;?>hr/denied">
                         <i class="ti-thumb-down"></i>
                         <p>Denied</p>
                     </a>
                 </li>
-                
-                <li>
-                    <a href="icons.html">
+                <?php if($_SESSION['details'][0]['account_type']=='1'){?>
+                <li <?php if($url[2]=='unverified'){echo "class='active'";}?>>
+                    <a href="<?php echo URL;?>hr/unverified">
                         <i class="ti-zip"></i>
                         <p>Unverified</p>
                     </a>
                 </li>
+                <?php }?>
+                <?php if($_SESSION['details'][0]['account_type']=='3'){?>
+                <li <?php if($url[2]=='cg_approved'){echo "class='active'";}?>>
+                    <a href="<?php echo URL;?>hr/cg_approved">
+                        <i class="ti-files"></i>
+                        <p>CG's Approved List</p>
+                    </a>
+                </li>
+                <?php }?>
+                <li <?php if($url[2]=='sorting'){echo "class='active'";}?>>
+                    <a href="<?php echo URL;?>hr/sorting">
+                        <i class="ti-files"></i>
+                        <p>Sorting</p>
+                    </a>
+                </li>
+                
+                
                 
                
 				

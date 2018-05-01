@@ -20,6 +20,10 @@ public $data = array();
 	{
               
 		if ($noInclude == true) {
+			$js=null;    
+            if(!empty($this->js)){   
+            $js=$this->js;    
+            }
 			extract($this->data);
 			require 'views/snipets/headerref.php';
 			require 'views/' .$name. '.php';
@@ -29,6 +33,7 @@ public $data = array();
 		else {
 			extract($this->data);
 			$url=explode('/',$_SERVER['REQUEST_URI']);
+			
             if($url[1]=='nps'){
             array_splice($url, 1, 1);    
             }

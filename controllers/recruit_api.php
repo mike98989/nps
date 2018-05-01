@@ -30,6 +30,13 @@ class recruit_api extends Controller {
     print_r(json_encode($return));
     }
 
+    //////////////GET POSITIONS
+    function get_positions(){
+    include("./models/recruit_model.php");
+	$recruit = new recruit_Model;	
+	$this->model=$recruit->get_positions();
+    }
+
     /////// DELETE RESULT
 	function delete_result(){
 	include("./models/recruit_model.php");
@@ -41,5 +48,10 @@ class recruit_api extends Controller {
     print_r($delete);    
 	}   
     
+    function get_applicant_details(){
+    include("./models/recruit_model.php");
+	$recruit = new recruit_Model;	
+	$this->model=$recruit->get_applicant_details($json=true);	
+    }
    
 }

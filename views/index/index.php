@@ -20,7 +20,7 @@
 
         </div>
         <?php if($image_slider['button']!=''){?>
-        <a class="js-go-to btn u-btn-outline-white g-color-white g-bg-white-opacity-0_1 g-color-black--hover g-bg-white--hover g-font-weight-600  g-rounded-50 g-px-30 g-py-13 animated u-animation-was-fired undefined" href="<?php echo URL.$image_slider['button'];?>" data-target="#content" style="display: inline-block;margin-top:270px">Learn more</a>
+        <a class="js-go-to btn u-btn-outline-white g-color-white g-bg-white-opacity-0_1 g-color-black--hover g-bg-white--hover g-font-weight-600  g-rounded-50 g-px-30 g-py-13 animated u-animation-was-fired undefined" href="<?php echo URL.$image_slider['button'];?>" data-target="#content" style="display: inline-block;margin-top:150px"><?php if($image_slider['button']=='recruit'){echo "Apply Now!";}else{echo "Learn more";}?></a>
         <?php }?>
       </div>
     </section>
@@ -58,7 +58,7 @@
                  <div class="row">
 
           <?php foreach ($all_news as $news){?>        
-          <div class="col-lg-4 g-mb-30 g-mb-0--lg">
+          <div class="col-lg-4 g-mb-30 g-mb-0--lg" style="margin-bottom:5px">
             <!-- Article -->
             <article class="u-block-hover">
               <figure class="g-bg-cover g-bg-bluegray-opacity-0_3--after" style="padding:0">
