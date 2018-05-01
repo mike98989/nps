@@ -19,7 +19,7 @@ class Recruit extends Controller {
     $this->view->render('recruit/done', $noinclude=false, $message);
     unset($_SESSION['loggedIn']);
 	}
-
+/*
   function logout() {
     if (Session::get('loggedIn')) {
       Session::destroy();
@@ -27,7 +27,7 @@ class Recruit extends Controller {
 
     $this->redirect("{$this->rootUrl}");
   }
-
+*/
 	function index() {
 	$message='';
 	//// IF THERE'S AN ALREADY INITIATED SESSION
