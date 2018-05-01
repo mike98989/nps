@@ -20,22 +20,22 @@ class Recruit extends Controller {
     unset($_SESSION['loggedIn']);
 	}
 
-  function logout() {
-    if (Session::get('loggedIn')) {
-      Session::destroy();
-    }
+  // function logout() {
+  //   if (Session::get('loggedIn')) {
+  //     Session::destroy();
+  //   }
 
-    $this->redirect("{$this->rootUrl}");
-  }
+  //   $this->redirect("{$this->rootUrl}");
+  // }
 
 	function index() {
-	$message='';
-	//// IF THERE'S AN ALREADY INITIATED SESSION
-	if (Session::get('loggedIn')) {
-	$this->redirect("{$this->rootUrl}/positions");
-	}
+  	$message='';
+  	//// IF THERE'S AN ALREADY INITIATED SESSION
+  	if (Session::get('loggedIn')) {
+  	  $this->redirect("{$this->rootUrl}/positions");
+  	}
 
-	//////////IF ITS A SIGNUP PROCESS
+    //////////IF ITS A SIGNUP PROCESS
 		if ($this->is_signup()) {
 
 			///////////IF GOOGLE CAPTCHA IS TICKED, THE VISITOR IS A HUMAN
@@ -66,7 +66,7 @@ class Recruit extends Controller {
 			}
 		}
 		//////////ELSE THE VISITOR IS NOT A HUMAN
-		else{
+		else{      
 			$this->view->data['signupErrorMessage'] = 'You are not Human!';
 			$this->view->render('recruit/index', $noinclude=false, $message);
 				die();
@@ -475,7 +475,7 @@ class Recruit extends Controller {
 
 	function login_user($email) {
 		$user = $this->model->get_user_by($email, 'email');
-		
+
 		if ($user) {
 			Session::init();
 			if ($user['completed']) {
