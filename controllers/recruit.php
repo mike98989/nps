@@ -19,7 +19,7 @@ class Recruit extends Controller {
     $this->view->render('recruit/done', $noinclude=false, $message);
     unset($_SESSION['loggedIn']);
 	}
-	
+
 	function index() {
   	$message='';
   	//// IF THERE'S AN ALREADY INITIATED SESSION
@@ -28,8 +28,8 @@ class Recruit extends Controller {
   	}
 
     //////////IF ITS A SIGNUP PROCESS
-		if ($this->is_signup()) {
-
+		//if ($this->is_signup()) {
+			if((isset($_POST['form'])) && ($_POST['form'] == 'signup')){
 			///////////IF GOOGLE CAPTCHA IS TICKED, THE VISITOR IS A HUMAN
 			if($_POST['g-recaptcha-response']!=''){
 			$fname = $_POST['fname'];
@@ -65,7 +65,8 @@ class Recruit extends Controller {
 		}
 	}
 		///////////IF ITS A LOGIN PROCESS
-		if ($this->is_login()) {
+		//if ($this->is_login()) {
+			if((isset($_POST['form'])) && ($_POST['form'] == 'login')){
 			$email = $_POST['email'];
 			$password = $_POST['password'];
 
@@ -91,9 +92,10 @@ class Recruit extends Controller {
 
 	function positions(){
 	$message='';
+	
 
 	if (!Session::get('loggedIn')) {
-			$this->redirect($this->rootUrl);
+		$this->redirect($this->rootUrl);
 		}
 			
 	if(isset($_POST['position_applied_for'])){

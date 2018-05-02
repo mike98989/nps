@@ -66,6 +66,7 @@
     //////////FETCH RESULTS
    $http.get(datagrab.completeUrlLocation+"recruit_api/get_positions?id="+user_id)
    .then(function(response) {
+    $('.loader').hide();
     $scope.positions = angular.fromJson(response.data.positions);
     $scope.sub_positions = angular.fromJson(response.data.sub_positions); 
     $scope.user_details = angular.fromJson(response.data.user_details);

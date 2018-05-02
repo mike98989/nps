@@ -10,11 +10,13 @@ class Bootstrap {
 		//print_r($url);
 
 		if (empty($url[0])) {
+			die(header('location: ./recruit'));
+			/*
 			require 'controllers/index.php';
 			$controller = new Index();
 			$controller->loadModel('index');
 			$controller->index();
-			
+			*/
 			return false;
 		}
         $arbitraryPage=array('function_of_nps','history_of_nps','mission_vision','roll_of_honours','operations','admin_supplies','inmates_training','finance_budget','works_logistics','health_social_welfare','admin_structure','contact_us','statistics','newspress_1','newspress_2','command_structure','prison_locations');
@@ -45,19 +47,19 @@ class Bootstrap {
 			require $file;
 		}
 
-
-
-
 		elseif (is_numeric($url[0])) {
 			header('location: ./registration?ref='.$url[0]);
 		}
 
 		else {
 			$this->error();
+			return;
 		}
-
+		
 		$controller = new $url[0];
+		
 		$controller->loadModel($url[0]);
+		
 		//echo $url[0];
 		// calling methods
 		if (isset($url[2])) {
@@ -84,9 +86,12 @@ class Bootstrap {
 	}
 
 	function error() {
+		echo "INVALID LINK!";
+		/*
 		require 'controllers/error.php';
 		$controller = new Error();
 		$controller->index();
+		*/
 		return false;
 	}
 

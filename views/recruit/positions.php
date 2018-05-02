@@ -1,4 +1,4 @@
-<section class="u-bg-overlay g-bg-pos-top-center g-bg-img-hero g-bg-black-opacity-0_3--after g-py-100" style="background:#ccc;padding-top:10px !important; padding-bottom:10px !important" ng-controller="recruitRegistrationController">
+<section class="u-bg-overlay g-bg-pos-top-center g-bg-img-hero g-bg-black-opacity-0_3--after g-py-100" style="background:#ccc;padding-top:10px !important; padding-bottom:10px !important" ng-controller="recruitRegistrationController" ng-cloak>
 <div class="container u-bg-overlay__inner" style="background:#fff;padding:30px 0;border-top:4px solid #90b205" ng-init="get_positions(<?php echo (int) Session::get('id');?>)">
 
 		<div class="stepwizard" style="margin-bottom:20px">
@@ -61,6 +61,7 @@
         <div class="alert alert-warning"><?php echo $msg;?></div>
         <?php }?>
   	<label style="font-weight:bold">Select Category</label>
+    <div class="loader" style="text-align: center"><img src="<?php echo URL;?>public/images/loader.gif" style="width:40px;"></div>
 	<select value="" required class="form-control" name="position_category" ng-model="user_details.position_category">
 	<option value="0">--SELECT CATEGORY--</option>	
 	<option value="{{position.id}}" ng-repeat="position in positions">{{position.title}}</option>
