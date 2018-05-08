@@ -191,7 +191,7 @@
       
        <div class="modal-body" style="padding:;" ng-init="get_applicants_other_details(user_details.recruit_id)">
                    <div class="loader">
-                   <img src="http://{{dirlocation}}public/images/loader.gif" style="width:50px">    
+                   <img src="{{completeUrlLocation}}public/images/loader.gif" style="width:50px">    
                    </div>
                             <div class="" style=""> 
                             <div style="text-align:center">   
@@ -205,7 +205,8 @@
                     </div>
                                 
                                 <div style="text-align:center">
-                                <img ng-repeat="attachment in attachments | filter:{ title: 'Passport Photograph' }" ng-src="http://{{dirlocation}}prison_cms_files/{{attachment.path}}" style="width:30%;margin:0 auto;float:none">
+
+                                <img ng-repeat="attachment in attachments | filter:{ title: 'Passport Photograph' }" ng-src="{{completeUrlLocation}}prison_cms_files/{{attachment.path}}" style="width:30%;margin:0 auto;float:none">
                             </div>
                             </div>
 
@@ -353,8 +354,8 @@
                             </tr>  
                             <tr ng-repeat="attach in attachments" ng-init="{{ext=attach.path.split('.').pop()}}">
                             <td>{{$index +1}}</td>
-                            <td><img ng-src="http://{{dirlocation}}public/images/{{ext}}_icon.png" style="width:20px;"></td>
-                            <td><a href="http://{{dirlocation}}prison_cms_files/{{attach.path}}" style="text-decoration: underline;color:#000">{{attach.title}}</a></td>
+                            <td><img ng-src="{{completeUrlLocation}}public/images/{{ext}}_icon.png" style="width:20px;"></td>
+                            <td><a href="{{completeUrlLocation}}prison_cms_files/{{attach.path}}" style="text-decoration: underline;color:#000">{{attach.title}}</a></td>
                             </tr>  
                             </table>
                             </div>        

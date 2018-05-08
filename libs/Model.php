@@ -7,6 +7,8 @@ class Model {
     $this->memcache = new Memcache();
     $this->cacheAvailable = $this->memcache->addServer(constant("MEMCACHED_HOST"), constant("MEMCACHED_PORT"));
 
+    //$this->memcache->flush();
+
 	}
 	
 	function returnjson($result){

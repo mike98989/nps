@@ -1,5 +1,11 @@
 <?php
-//die(header('location: https://recruit.prisonsportal.com.ng'));
+//echo $_GET['url'];exit;
+/*
+$protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://';
+if($protocol=='http://'){
+die(header('location: https://recruit.prisonsportal.com.ng/recruit'));
+}else{
+*/
 ob_start();
 ini_set('display_errors', 1);
 
@@ -18,3 +24,5 @@ require 'config/paths.php';
 require 'config/database.php';
 
 $app = new Bootstrap();
+//}
+

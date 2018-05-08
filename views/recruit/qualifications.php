@@ -239,12 +239,12 @@
 			    </tr>
 			  </thead>
 			  <thead>
-			  <tr class="loader" style="display:none">
+			  <tr class="loader" id="load_qualification" style="display:nne">
 			  <td colspan="8" style="text-align:center"><img src="<?php echo URL;?>public/images/loader.gif" style="width:40px;"></td>	
 			  </tr>
 			</thead>
 			  	
-			  <tr ng-show="edu_qualifications.length!=0" dir-paginate="edu in edu_qualifications | itemsPerPage: pageSize" current-page="currentPage" ng-cloak>
+			  <tr ng-show="edu_qualifications.length!=0" dir-paginate="edu in edu_qualifications | itemsPerPage: pageSize track by $index"  current-page="currentPage" ng-cloak>
 			  <td>{{$index +1}}</td>
 			  <td>{{edu.startdate}} - {{edu.enddate}}</td>
 			  <td style="font-weight:bold">{{edu.institution}}</td>
@@ -252,7 +252,7 @@
 			  <td>{{edu.city}}/{{edu.country}}</td>
 			  <td>{{edu.type}}</td>
 			  <td>{{edu.classification}}</td>
-			  <td><i class="fa fa-times" style="cursor:pointer" ng-click="delete_result(edu.id, <?php echo  (int) Session::get('id');?>,'qualification' )"></i></td>	
+			  <td><i class="fa fa-times" style="cursor:pointer" ng-click="delete_result(edu.id, <?php echo  (int) Session::get('id');?>,'qualification', edu)"></i></td>	
 			  </tr>
 			  <tr ng-show="edu_qualifications.length==0">
 			  <td colspan="8" style="text-align:center;color:#f30">
@@ -281,7 +281,7 @@
 			    </tr>
 			  </thead>
 			  <thead>
-			  <tr class="loader" style="display:none">
+			  <tr class="loader" id="load_professional" style="display:nne">
 			  <td colspan="8" style="text-align:center"><img src="<?php echo URL;?>public/images/loader.gif" style="width:40px;"></td>	
 			  </tr>
 			  </thead>
@@ -291,7 +291,7 @@
 			  <td>{{pro.institution}}</td>
 			  <td>{{pro.certificate_title}}</td>
 			  <td>{{pro.city}}/{{pro.country}}</td>
-			  <td><i class="fa fa-times" style="cursor:pointer" ng-click="delete_result(pro.id, <?php echo  (int) Session::get('id');?>,'professional' )"></i></td>
+			  <td><i class="fa fa-times" style="cursor:pointer" ng-click="delete_result(pro.id, <?php echo  (int) Session::get('id');?>,'professional', pro )"></i></td>
 			  </tr>
 			  <tr ng-show="pro_qualifications.length==0">
 			  <td colspan="6" style="text-align:center;color:#f30">

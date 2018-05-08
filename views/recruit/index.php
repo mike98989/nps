@@ -65,12 +65,12 @@
             </div>
 
             
-
+            <div class="g-recaptcha" data-sitekey="6Lcuqk4UAAAAAFErYJo2BeY0K6VhHmNo_38L2aA9"></div>
             <div class="g-mb-60">
               <button class="btn btn-md btn-block u-btn-primary rounded g-py-13" type="submit">Login</button>
             </div>
               
-              <div class="g-mb-30" style=";margin-top: 11.5rem;text-align:center">
+              <div class="g-mb-30" style=";margin-top: 6rem;text-align:center">
               
                 
                 
@@ -82,9 +82,9 @@
 
       <div class="col-lg-4 g-bg-white g-rounded-right-5--lg-up">
         <div class="g-pa-30">
-          <!-- Form -->
+         <!-- Form -->
           <form id="signupForm" action="" class="" method="post" onsubmit="return validateSignupForm();">
-          	<input type="hidden" name="form" value="signup">
+            <input type="hidden" name="form" value="signup">
             <h3 class="h4 g-color-black mb-4">New Applicant</h2>
             <div class="mb-4">
               <div class="input-group rounded">
@@ -139,6 +139,7 @@
             <div class="g-recaptcha" data-sitekey="6Lcuqk4UAAAAAFErYJo2BeY0K6VhHmNo_38L2aA9"></div>
             <button class="btn btn-md btn-block u-btn-primary rounded g-py-13" type="submit">Signup</button>
           </form>
+
           <!-- End Form -->
         </div>
       </div>

@@ -8,8 +8,8 @@
 
     //var dirlocation = window.location.hostname+'/nps/';
     var dirlocation = window.location.hostname+'/';
-    //var completeUrlLocation = 'https://'+window.location.hostname+'/';
-    var completeUrlLocation = 'http://'+window.location.hostname+'/nps/';
+    var completeUrlLocation = 'https://'+window.location.hostname+'/';
+    //var completeUrlLocation = 'http://'+window.location.hostname+'/nps/';
     //var current_user = $('#current_user_value').val();
     return {dirlocation: dirlocation, urlSplit:webUrl, completeUrlLocation:completeUrlLocation}
 

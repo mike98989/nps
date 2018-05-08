@@ -16,59 +16,102 @@ class recruit_Model extends Model {
     $this->lga_table = 'lgas';
 
 	}
-
 	public function email_exists($email) {
 		$result = $this->db->query("SELECT COUNT(*) AS result FROM {$this->table} WHERE email='{$email}' LIMIT 1")or die(mysql_error());
     
     return $result->rows[0]['result'];
 	}
 
+	
 	public function insert_user($fname, $sname, $email, $pwd) {
 		$pwd_hash = password_hash($pwd, PASSWORD_DEFAULT);
 		$query = "INSERT INTO {$this->table}(fname, sname, email, password) VALUES ('{$fname}', '{$sname}', '{$email}', '{$pwd_hash}')";
-		
+		$this->memcache->set("user_{$email}", $res->rows);
 		$res = $this->db->query($query) or die(mysql_error());
 		return $res->rows;
 	}
 
 	public function load_educationals($id) {
+		$from_cache = $this->memcache->get("edu_{$id}");
+		if ($from_cache) {
+
+			return $from_cache;
+		} else {
 		$query = "SELECT * FROM {$this->edu_qualifactions_table} WHERE recruit_id={$id}";
 		$res = $this->db->query($query) or die(mysql_error());
+		$this->memcache->set("edu_{$id}", $res->rows);
 		return $res->rows;
+		}
 	}
 
 	public function load_professionals($id) {
-		$query = "SELECT * FROM {$this->prof_qualifactions_table} WHERE recruit_id={$id}";
-		$res = $this->db->query($query) or die(mysql_error());
-		return $res->rows;
+		$from_cache = $this->memcache->get("prof_{$id}");
+		if ($from_cache) {
+			return $from_cache;
+		} else {
+			$query = "SELECT * FROM {$this->prof_qualifactions_table} WHERE recruit_id={$id}";
+			$res = $this->db->query($query) or die(mysql_error());
+			$this->memcache->set("prof_{$id}", $res->rows);
+			return $res->rows;
+		}
 	}
 
 	public function load_experience($id) {
-		$query = "SELECT * FROM {$this->experience_table} WHERE recruit_id={$id}";
-		$res = $this->db->query($query) or die(mysql_error());
-		return $res->rows;
+		$from_cache = $this->memcache->get("exp_{$id}");
+		if ($from_cache) {
+			return $from_cache;
+		} else {
+			$query = "SELECT * FROM {$this->experience_table} WHERE recruit_id={$id}";
+			$res = $this->db->query($query) or die(mysql_error());
+			$this->memcache->set("exp_{$id}", $res->rows);
+			return $res->rows;
+		}
 	}
 
 	public function load_attachments($id) {
-		$query = "SELECT * FROM {$this->attachment_table} WHERE recruit_id={$id}";
-		$res = $this->db->query($query) or die(mysql_error());
-		return $res->rows;
+		$from_cache = $this->memcache->get("at_{$id}");
+		if ($from_cache) {
+			return $from_cache;
+		} else {
+			$query = "SELECT * FROM {$this->attachment_table} WHERE recruit_id={$id}";
+			$res = $this->db->query($query) or die(mysql_error());
+			$this->memcache->set("at_{$id}", $res->rows);
+			return $res->rows;
+		}
 	}
 
   public function load_attachments_list() {
-    $query = "SELECT * FROM {$this->attachments_list_table} ORDER BY degree ASC";
-    $res = $this->db->query($query) or die(mysql_error());
-    return $res->rows;
+    	$from_cache = $this->memcache->get("at_list");
+		if ($from_cache) {
+			return $from_cache;
+		} else {
+	    $query = "SELECT * FROM {$this->attachments_list_table}";
+	    $res = $this->db->query($query) or die(mysql_error());
+			$this->memcache->set("at_list", $res->rows);
+	    return $res->rows;
+		}
   }
 
   public function load_countries() {
-    $res = $this->db->query("SELECT * FROM {$this->country_table}") or die(mysql_error());
-    return $res->rows;
+    $from_cache = $this->memcache->get('countries');
+  	if ($from_cache) {
+  		return $from_cache;
+  	} else {
+	    $res = $this->db->query("SELECT * FROM {$this->country_table}") or die(mysql_error());
+	    $this->memcache->set('countries', $res->rows);
+	    return $res->rows;  		
+  	}
   }
 
   public function load_lgas() {
-    $res = $this->db->query("SELECT * FROM {$this->lga_table}") or die(mysql_error());
-    return $res->rows;
+	$from_cache = $this->memcache->get('lgas');
+  	if ($from_cache) {
+  		return $from_cache;
+  	} else {
+	    $res = $this->db->query("SELECT * FROM {$this->lga_table}") or die(mysql_error());
+	    $this->memcache->set('lgas', $res->rows);
+	    return $res->rows;  		
+  	}
   }
 
 
@@ -102,10 +145,12 @@ class recruit_Model extends Model {
 		$query = "INSERT INTO {$this->personal_details_table} ({$columns}) VALUES ({$values})";
 		$res = $this->db->query($query) or die(mysql_error());
 
+		$this->memcache->set("reg_{$details['recruit_id']}", $res->rows[0]);
+	
 		$user_details= $this->db->query("SELECT * FROM personal_details INNER JOIN recruit ON personal_details.recruit_id=recruit.id WHERE personal_details.recruit_id='".$details['recruit_id']."'")or die(mysql_error());
 			session_start();
 			$_SESSION['user_details']=$user_details->row;
-
+		
 
 		return $res->rows[0];
 	}
@@ -117,19 +162,17 @@ class recruit_Model extends Model {
 		}
 		$query = substr($query, 0, -1);
 		$query .= " WHERE recruit_id={$id}";
-
 		$res = $this->db->query($query) or die(mysql_error());
+		$this->memcache->set("reg_{$id}", $res->rows[0]);
 
 		$user_details= $this->db->query("SELECT * FROM personal_details INNER JOIN recruit ON personal_details.recruit_id=recruit.id WHERE personal_details.recruit_id='".$id."'")or die(mysql_error());
 			session_start();
 			$_SESSION['user_details']=$user_details->row;
-
-
 		return $res->rows[0];
 	}
 
 	public function insert_qualification($details) {
-		$columns = "";
+			$columns = "";
 		$values = "";
 		foreach ($details as $column => $value) {
 			$columns .= "{$column},";
@@ -141,17 +184,41 @@ class recruit_Model extends Model {
 		}
 		$columns = substr($columns, 0, -1);
 		$values = substr($values, 0, -1);
-
 		$query = "INSERT INTO {$this->edu_qualifactions_table} ({$columns}) VALUES ({$values})";
 		$res = $this->db->query($query) or die(mysql_error());
+		$from_cache = $this->memcache->get("edu_{$details['recruit_id']}");
+		if ($from_cache) {
+			$from_cache = $res->rows;
+			//$result = array_merge($from_cache, $res->rows[0]);
+			$this->memcache->set("edu_{$details['recruit_id']}", $from_cache);			
+		} else {
+			$this->memcache->set("edu_{$details['recruit_id']}", $res->rows);			
+		}
 		return $res->rows[0];
 	}
 
+
 	public function delete_qualification($id, $recruit_id) {
-		$query = "DELETE FROM {$this->edu_qualifactions_table} WHERE id={$id} AND recruit_id={$recruit_id}";
-		$res = $this->db->query($query) or die(mysql_error());
+		
+		$delete_query = "DELETE FROM {$this->edu_qualifactions_table} WHERE id={$id} AND recruit_id={$recruit_id}";
+		$res = $this->db->query($delete_query) or die(mysql_error());
+		if($res){
+		$from_cache = $this->memcache->get("edu_{$recruit_id}");
+		if ($from_cache) {
+			for ($i=0; $i < count($from_cache); $i++) { 
+				if ($from_cache[$i]['id'] == $id) {
+					unset($from_cache[$i]);
+					break;
+				}
+			}
+			$this->memcache->set("edu_{$recruit_id}", $from_cache);
+			
+		}
+		
 		return $res->rows[0];
+		}
 	}
+
 
 	function insert_professional($details) {
 		$columns = "";
@@ -166,15 +233,32 @@ class recruit_Model extends Model {
 		}
 		$columns = substr($columns, 0, -1);
 		$values = substr($values, 0, -1);
-
 		$query = "INSERT INTO {$this->prof_qualifactions_table} ({$columns}) VALUES ({$values})";
 		$res = $this->db->query($query) or die(mysql_error());
+		$from_cache = $this->memcache->get("prof_{$details['recruit_id']}");
+		if ($from_cache) {
+			$from_cache = $res->rows;
+			$this->memcache->set("prof_{$details['recruit_id']}", $from_cache);			
+		} else {
+			$this->memcache->set("prof_{$details['recruit_id']}", $res->rows);			
+		}
 		return $res->rows[0];
 	}
 
 	public function delete_professional($id, $recruit_id) {
 		$query = "DELETE FROM {$this->prof_qualifactions_table} WHERE id={$id} AND recruit_id={$recruit_id}";
 		$res = $this->db->query($query) or die(mysql_error());
+		
+		$from_cache = $this->memcache->get("prof_{$recruit_id}");
+		if ($from_cache) {
+			for ($i=0; $i < count($from_cache); $i++) { 
+				if ($from_cache[$i]['id'] == $id) {
+					unset($from_cache[$i]);
+					break;
+				}
+			}
+			$this->memcache->set("prof_{$recruit_id}", $from_cache);
+		}
 		return $res->rows[0];
 	}
 
@@ -191,15 +275,32 @@ class recruit_Model extends Model {
 		}
 		$columns = substr($columns, 0, -1);
 		$values = substr($values, 0, -1);
-
 		$query = "INSERT INTO {$this->experience_table} ({$columns}) VALUES ({$values})";
 		$res = $this->db->query($query) or die(mysql_error());
+		$from_cache = $this->memcache->get("exp_{$details['recruit_id']}");
+		if ($from_cache) {
+			$from_cache = $res->rows;
+			$this->memcache->set("exp_{$details['recruit_id']}", $from_cache);			
+		} else {
+			$this->memcache->set("exp_{$details['recruit_id']}", $res->rows);			
+		}
 		return $res->rows[0];
 	}
 
 	public function delete_experience($id, $recruit_id) {
 		$query = "DELETE FROM {$this->experience_table} WHERE id={$id} AND recruit_id={$recruit_id}";
 		$res = $this->db->query($query) or die(mysql_error());
+		
+		$from_cache = $this->memcache->get("exp_{$recruit_id}");
+		if ($from_cache) {
+			for ($i=0; $i < count($from_cache); $i++) { 
+				if ($from_cache[$i]['id'] == $id) {
+					unset($from_cache[$i]);
+					break;
+				}
+			}
+			$this->memcache->set("exp_{$recruit_id}", $from_cache);
+		}
 		return $res->rows[0];
 	}
 
@@ -216,29 +317,54 @@ class recruit_Model extends Model {
 		}
 		$columns = substr($columns, 0, -1);
 		$values = substr($values, 0, -1);
-
 		$query = "INSERT INTO {$this->attachment_table} ({$columns}) VALUES ({$values})";
-    	$res = $this->db->query($query) or die(mysql_error());
+    $res = $this->db->query($query) or die(mysql_error());
+		$from_cache = $this->memcache->get("at_{$details['recruit_id']}");
+		if ($from_cache) {
+			$from_cache = $res->rows;
+			$this->memcache->set("at_{$details['recruit_id']}", $from_cache);			
+		} else {
+			$this->memcache->set("at_{$details['recruit_id']}", $res->rows);			
+		}
 		return $res->rows[0];
 	}
 
 	function delete_attachment($id, $recruit_id) {
 		$query = "DELETE FROM {$this->attachment_table} WHERE id={$id} AND recruit_id={$recruit_id}";
 		$res = $this->db->query($query) or die(mysql_error());
+		
+		$from_cache = $this->memcache->get("at_{$recruit_id}");
+		if ($from_cache) {
+			for ($i=0; $i < count($from_cache); $i++) { 
+				if ($from_cache[$i]['id'] == $id) {
+					unset($from_cache[$i]);
+					break;
+				}
+			}
+			$this->memcache->set("at_{$recruit_id}", $from_cache);
+		}
 		return $res->rows[0];
 	}
 
 	function get_attachment_path($id, $recruit_id) {
+		$from_cache = $this->memcache->get("at_{$recruit_id}");
+		if ($from_cache) {
+			return $from_cache[0]['path'];
+		}
 		$query = "SELECT path FROM {$this->attachment_table} WHERE id={$id} AND recruit_id={$recruit_id}";
 		$res = $this->db->query($query) or die(mysql_error());
 		return $res->rows[0]['path'];
 	}
 
 	public function registration_details($id) {
-		$query = "SELECT * FROM {$this->personal_details_table} WHERE recruit_id={$id}";
-		$res = $this->db->query($query) or die(mysql_error());
-		if($res->num_rows!=0){
-		return $res->rows[0];
+		$from_cache = $this->memcache->get("reg_{$id}");
+		if ($from_cache) {
+			return $from_cache;
+		} else {
+			$query = "SELECT * FROM {$this->personal_details_table} WHERE recruit_id={$id}";
+			$res = $this->db->query($query) or die(mysql_error());
+			$this->memcache->set("reg_{$id}", $res->rows[0]);
+			return $res->rows[0];
 		}
 	}
 
@@ -248,15 +374,16 @@ class recruit_Model extends Model {
 	}
 
 	public function validate_user($email, $pwd) {
-		$result = $this->get_user_by($email, 'email');
-		/* UPDATING LGA TABLE WITH STATE SHORT CODE
-		echo $update = $this->db->query("UPDATE lgas SET state_short_code='SOK' WHERE state='Sokoto'");
-		*/
-		
+		$from_cache = $this->memcache->get("user_{$email}");
+		if ($from_cache) {
+			return $from_cache;
+		} else {
+			$result = $this->get_user_by($email, 'email');
+			 if (!$result) $this->memcache->set("user_{$email}", $result);
+		}
 		if(!$result) {
 			return false;
 		}
-
 		return password_verify($pwd, $result['password']);
 	}
 
@@ -302,22 +429,61 @@ class recruit_Model extends Model {
     }
 
     function get_positions(){
-    $positions = $this->db->query("SELECT * FROM positions WHERE status='1'")or die(mysql_error());	
+    $id=$this->db->escape($_GET['id']);	
+    $from_cache_positions = $this->memcache->get("positions_{$id}");
+    $from_cache_sub_positions = $this->memcache->get("sub_positions_{$id}");	
+    $from_cache_recruit_details = $this->memcache->get("recruit_details_{$id}");
+
+    if($from_cache_positions){	
+    $return['positions'] = $from_cache_positions;	
+    }else{
+    $positions = $this->db->query("SELECT * FROM positions WHERE status='1'")or die(mysql_error());		
+    $this->memcache->set("positions_{$id}", $this->returnjson($positions->rows));
+    $return['positions'] = $this->returnjson($positions->rows);	
+    }
+
+    if($from_cache_sub_positions){	
+    $return['sub_positions'] = $from_cache_sub_positions;	
+    }else{
     $sub_positions = $this->db->query("SELECT * FROM sub_positions WHERE status='1'")or die(mysql_error());	
-    $user_id=$this->db->escape($_GET['id']);
-    $user_details = $this->db->query("SELECT * FROM recruit WHERE id='".$user_id."'")or die(mysql_error());	
-    $return['positions'] = $this->returnjson($positions->rows);
+    $this->memcache->set("sub_positions_{$id}", $this->returnjson($sub_positions->rows));	
     $return['sub_positions'] = $this->returnjson($sub_positions->rows);
-    $return['user_details'] = $this->returnjson($user_details->row);
+    }
+    
+    if($from_cache_recruit_details){
+
+    $return['user_details'] = $from_cache_recruit_details;	
+    }else{
+    $user_details = $this->db->query("SELECT * FROM recruit WHERE id='".$id."'")or die(mysql_error());	
+    $this->memcache->set("recruit_details_{$id}", $this->returnjson($user_details->row));	
+    $return['user_details'] = $this->returnjson($user_details->row);	
+    }
+    //$return['positions'] = $this->returnjson($positions->rows);
+    //$return['sub_positions'] = $this->returnjson($sub_positions->rows);
+    //$return['user_details'] = $this->returnjson($user_details->row);
    	print_r(json_encode($return));
    	exit;
     }
 
 
-      function get_applicant_details($json){
+     function get_applicant_details($json){
+      
     $query='';        
     $id=$this->db->escape($_GET['id']);
+    $from_cache_all_details = $this->memcache->get("all_details_{$id}");
+    if($from_cache_all_details){
+    if($json==true){	
+    print_r($from_cache_all_details);
+    exit;    
+    }else{
+    $return = json_decode($from_cache_all_details,true);	
+    return $return;   
+    }
+
+    }else{
+    
     $details = $this->db->query("SELECT P.*,R.*,S.sub_title,S.position_id,S.hint, P2.title  from personal_details P INNER JOIN recruit R ON P.recruit_id=R.id INNER JOIN sub_positions S ON R.position_applied_for=S.sub_position_id INNER JOIN positions P2 ON S.position_id=P2.id WHERE P.recruit_id='".$id."' ".$query)or die(mysql_error());
+    $this->memcache->set("all_details_{$id}", $this->returnjson($details->row));
     if($json==true){
     $return = $this->returnjson($details->row);
     print_r($return);
@@ -325,11 +491,27 @@ class recruit_Model extends Model {
     }else{
     return $details->row;   
     }
+
+	}
+	
+
     }
 
     function get_applicant_photo($json){
-    $id=$this->db->escape($_GET['id']);
+    $id=$this->db->escape($_GET['id']);	
+    $from_cache_user_photo = $this->memcache->get("user_photo_{$id}");	
+    if($from_cache_user_photo){
+    if($json==true){
+    print_r($from_cache_all_details);
+    exit;   
+    }else{
+    $return = json_decode($from_cache_user_photo,true);	
+    return $return;   
+    }	
+    }
+    else{
     $photo = $this->db->query("SELECT * FROM attachments WHERE title='Passport Photograph' AND recruit_id='".$id."'")or die(mysql_error());
+    $this->memcache->set("user_photo_{$id}", $this->returnjson($photo->row));
     if($json==true){
     $return = $this->returnjson($photo->row);
     print_r($return);
@@ -338,11 +520,22 @@ class recruit_Model extends Model {
     return $photo->row;   
     }	
 
+	}
+
+
     }
 
     function load_chosen_position($position_id){
+    $from_cache_chosen_positions = $this->memcache->get("chosen_positions_{$position_id}");	
+    if($from_cache_chosen_positions){	
+    $positions = json_decode($from_cache_chosen_positions, true);
+    return $positions;	
+    }else{
     $positions = $this->db->query("SELECT * FROM sub_positions INNER JOIN positions ON sub_positions.position_id=positions.id WHERE sub_positions.sub_position_id='".$position_id."'")or die(mysql_error());
+    $this->memcache->set("chosen_positions_{$position_id}", $this->returnjson($positions->row));
     return $positions->row;
+	}
+    
     }
 
     function save_position_applied(){
@@ -364,10 +557,13 @@ class recruit_Model extends Model {
      foreach($combine as $column => $value){
       $sets[] = "" .$column. " = ".$value." ";
      }
-     $whereSQL = "WHERE id='".$this->db->escape($_POST['recruit_id'])."'";
+     $id = $this->db->escape($_POST['recruit_id']);
+     $whereSQL = "WHERE id='".$id."'";
     $message="true";
      $sql ="UPDATE recruit" . " SET " .implode("," ,$sets) . $whereSQL;
-     if($this->db->query($sql)) {
+     $res = $this->db->query($sql) or die(mysql_error());
+     if($res) {
+	$this->memcache->set("recruit_details_{$id}", $res->rows[0]);	
      $msg = $message;
      }else {
      $msg = mysql_error();

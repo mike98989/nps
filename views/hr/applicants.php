@@ -37,6 +37,7 @@
                                        
                                     </tbody>
                                 </table>
+                                <dir-pagination-controls boundary-links="true" template-url="" style="float:right"></dir-pagination-controls>
 
                             </div>
                         </div>

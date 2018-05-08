@@ -6,8 +6,20 @@ class Recruit extends Controller {
 		parent::__construct();
 		$this->rootUrl = constant("URL") . 'recruit';
         
-    $this->view->scripts = array('public/js/validateForms.js');
+    //$this->view->scripts = array('public/js/validateForms.js');
+    $message='';
+    /*
+    if(isset($_GET['ignorePassersBy'])){
+    session_start();	
+    $_SESSION['ignorePass']='1';	
+    }
+    if(!isset($_SESSION['ignorePass'])){
+    $this->view->render('maintenance/index', $noinclude=true, $message);
+    exit;
 	}
+    */
+	}
+
 
 	function done() {
 	if (!Session::get('user_details')) {
@@ -20,7 +32,7 @@ class Recruit extends Controller {
     unset($_SESSION['loggedIn']);
 	}
 
-	function index() {
+	function index() {	
   	$message='';
   	//// IF THERE'S AN ALREADY INITIATED SESSION
   	if (Session::get('loggedIn')) {
@@ -67,6 +79,7 @@ class Recruit extends Controller {
 		///////////IF ITS A LOGIN PROCESS
 		//if ($this->is_login()) {
 			if((isset($_POST['form'])) && ($_POST['form'] == 'login')){
+			if($_POST['g-recaptcha-response']!=''){
 			$email = $_POST['email'];
 			$password = $_POST['password'];
 
@@ -83,6 +96,9 @@ class Recruit extends Controller {
 				}
 				
 				$this->redirect("{$this->rootUrl}/positions");
+			}
+			}else{
+			$this->view->data['loginErrorMessage'] = 'You are not Human!';	
 			}
 		}
 
@@ -285,11 +301,12 @@ class Recruit extends Controller {
 
 		if ($_POST['form'] == 'delete_attachment') {
       $path = $this->model->get_attachment_path((int) $_POST['id'], $id);
-
+      
       if ($path) {
         unlink("{$file_store}/{$path}");
+    }
         $this->model->delete_attachment((int) $_POST['id'], $id);
-      }
+      
     }
 
    
@@ -339,6 +356,7 @@ class Recruit extends Controller {
 }
 	$this->view->data['attachments_list'] = $this->model->load_attachments_list();
     $this->view->data['attachments'] = $this->model->load_attachments($id);
+    //$this->view->data['position'] = $this->model->load_chosen_position($id);
     $this->view->data['position'] = $this->model->load_chosen_position($_SESSION['user_details']['position_applied_for']);
     $count = count($this->view->data['attachments']);
     $passport_uploaded = false;

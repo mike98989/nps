@@ -55,7 +55,7 @@
                             <td style="font-weight:bold">Nationality</td>
                             <td><?php echo $details['nationality'];?></td>
                             <td style="font-weight:bold">Perm Address</td>
-                            <td><?php echo $details['permStreet'].', '.$details['permAddress'];?></td>
+                            <td><?php echo $details['permAddress'];?></td>
                             </tr>
 
                             <tr>
@@ -164,8 +164,8 @@
                             </tr>  
                             <tr ng-repeat="attach in attachments" ng-init="{{ext=attach.path.split('.').pop()}}">
                             <td>{{$index +1}}</td>
-                            <td><img ng-src="http://{{dirlocation}}public/images/{{ext}}_icon.png" style="width:20px;"></td>
-                            <td><a href="http://{{dirlocation}}prison_cms_files/{{attach.path}}" style="text-decoration: underline;color:#000">{{attach.title}}</a></td>
+                            <td><img ng-src="{{completeUrlLocation}}public/images/{{ext}}_icon.png" style="width:20px;"></td>
+                            <td><a href="{{completeUrlLocation}}prison_cms_files/{{attach.path}}" style="text-decoration: underline;color:#000">{{attach.title}}</a></td>
                             </tr>  
                             </table>
                             </div>        

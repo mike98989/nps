@@ -155,6 +155,8 @@
                                         <i class="fa fa-circle text-danger"></i> Superintendent Cadre</a>
                                         <a href="<?php echo URL;?>hr/sorting?category=2&status=completed" style="color:inherit">
                                         <i class="fa fa-circle text-warning"></i> Inspectorate Cadre</a>
+
+                                        <i class="fa fa-circle text-primary" style="color:#35C69F"></i> Uncertain</a>
                                     </div>
                                     <hr> 
                                     <div class="stats">

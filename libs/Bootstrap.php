@@ -19,6 +19,7 @@ class Bootstrap {
 			*/
 			return false;
 		}
+		/*
         $arbitraryPage=array('function_of_nps','history_of_nps','mission_vision','roll_of_honours','operations','admin_supplies','inmates_training','finance_budget','works_logistics','health_social_welfare','admin_structure','contact_us','statistics','newspress_1','newspress_2','command_structure','prison_locations');
         
         if(in_array($url[0],$arbitraryPage)){
@@ -28,6 +29,7 @@ class Bootstrap {
             //$controller->loadModel('index');
 			return false;     
         }
+        */
 		/*
         
         if(($url[0]=='create')||($url[0]=='invoices')||($url[0]=='invoice_print')||($url[0]=='admin')||($url[0]=='profile')||($url[0]=='customers')){
@@ -43,7 +45,6 @@ class Bootstrap {
 
 		$file = 'controllers/' . $url[0] . '.php';
 		if (file_exists($file)) {
-
 			require $file;
 		}
 

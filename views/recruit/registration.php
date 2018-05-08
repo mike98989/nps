@@ -87,7 +87,7 @@
 			  <div class="row mb-3">
 			  	<div class="col-md-12">
 			  		<label  style="font-weight:bold">Middle name</label>
-			  		<input value="<?php if(isset($_POST['mname'])){echo $mname;} ?>" type="text" class="form-control" name="mname">
+			  		<input value="<?php echo $mname;?>" type="text" class="form-control" name="mname">
 			  	</div>
 			  </div>
 			  <div class="row mb-3">
